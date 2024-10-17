@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { createClient } from "@/utils/supabase/server";
+import { eventDatesDisplay } from "@/utils/utils";
 import {
   Calendar,
   Facebook,
@@ -45,12 +46,13 @@ export default async function EventDetailPage({
               <div className="space-y-2">
                 <div className="flex items-center text-sm md:text-md">
                   <Calendar className="w-5 h-5 mr-2 text-gray-500" />
-                  <span>{event.date_start}</span>
-                  <span>{event.date_end}</span>
+                  <span>
+                    {eventDatesDisplay(event.date_start, event.date_end)}
+                  </span>
                 </div>
                 <div className="flex items-center text-sm md:text-md">
                   <MapPin className="w-5 h-5 mr-2 text-gray-500" />
-                  <span>{event.venue}</span>s
+                  <span>{event.venue}</span>
                 </div>
                 <div className="flex items-center text-sm md:text-md">
                   <User className="w-5 h-5 mr-2 text-gray-500" />
