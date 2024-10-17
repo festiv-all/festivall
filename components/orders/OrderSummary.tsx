@@ -1,10 +1,11 @@
 "use client";
 
-import { Separator } from "@radix-ui/react-dropdown-menu";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { getCurrencyInWon } from "@/utils/utils";
-import { Button } from "../ui/button";
 import useCartStore from "@/lib/store/cart";
+import { getCurrencyInWon } from "@/utils/utils";
+import { Separator } from "@radix-ui/react-dropdown-menu";
+import { ShoppingCart, X } from "lucide-react";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Sheet,
   SheetContent,
@@ -12,7 +13,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import { ShoppingCart, Trash2, X } from "lucide-react";
 
 export default function OrderSummary() {
   const cart = useCartStore((state) => state.cart);

@@ -12,7 +12,7 @@ export default async function BuyTicketsPage({
 }) {
   const supabase = createClient();
   const title = params.slug.replaceAll("-", " ");
-  const currentDate = new Date().toISOString();
+  // const currentDate = new Date().toISOString();
 
   const { data: event } = await supabase
     .from("events")

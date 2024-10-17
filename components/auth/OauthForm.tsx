@@ -1,8 +1,5 @@
 import { supabaseBrowser } from "@/utils/supabase/client";
 import { Button } from "../ui/button";
-import { Icons } from "../icons/Icons";
-import { Mail } from "lucide-react";
-import Link from "next/link";
 
 export default function OauthForm() {
   const supabase = supabaseBrowser();
