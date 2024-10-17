@@ -1,5 +1,8 @@
 import { supabaseBrowser } from "@/utils/supabase/client";
 import { Button } from "../ui/button";
+import { Icons } from "../icons/Icons";
+import { Mail } from "lucide-react";
+import Link from "next/link";
 
 export default function OauthForm() {
   const supabase = supabaseBrowser();
@@ -22,7 +25,13 @@ export default function OauthForm() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-3">
+    <div className="grid grid-cols-1 gap-3 text-gray-800 font-semibold">
+      {/* <Link href="/login/email">
+        <Button variant="outline" className="w-full h-12 items-center">
+          <Mail className="w-5 h-5  mr-2" />
+          이메일로 계속하기
+        </Button>
+      </Link> */}
       <Button
         variant="outline"
         onClick={handleLoginWithGoogle}
