@@ -12,61 +12,41 @@ export type Database = {
       categories: {
         Row: {
           allow_multiple: boolean
-          category_belongs_to: number | null
           created_at: string
           description: string | null
-          display_order: number | null
-          event_belongs_to: string
-          has_sub_category: boolean
+          display_order: number
+          event_id: string
           id: number
           is_activate: boolean
           title: string
-          title_en: string
+          title_en: string | null
         }
         Insert: {
           allow_multiple?: boolean
-          category_belongs_to?: number | null
           created_at?: string
           description?: string | null
-          display_order?: number | null
-          event_belongs_to?: string
-          has_sub_category?: boolean
+          display_order: number
+          event_id: string
           id?: number
           is_activate?: boolean
           title: string
-          title_en: string
+          title_en?: string | null
         }
         Update: {
           allow_multiple?: boolean
-          category_belongs_to?: number | null
           created_at?: string
           description?: string | null
-          display_order?: number | null
-          event_belongs_to?: string
-          has_sub_category?: boolean
+          display_order?: number
+          event_id?: string
           id?: number
           is_activate?: boolean
           title?: string
-          title_en?: string
+          title_en?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "categories_belongs_to_fkey"
-            columns: ["category_belongs_to"]
-            isOneToOne: false
-            referencedRelation: "categories"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "categories_category_belongs_to_fkey"
-            columns: ["category_belongs_to"]
-            isOneToOne: false
-            referencedRelation: "categories"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "categories_event_belongs_to_fkey"
-            columns: ["event_belongs_to"]
+            columns: ["event_id"]
             isOneToOne: false
             referencedRelation: "events"
             referencedColumns: ["id"]
@@ -299,45 +279,48 @@ export type Database = {
       }
       products: {
         Row: {
-          category: number | null
+          activate_from: string
+          category_id: number
           created_at: string
           event_id: string
           id: string
           image_url: string | null
-          max_quantity: number | null
+          max_quantity: number
           price: number
-          sub_category: number | null
+          sub_category_id: number | null
           title: string
           title_en: string | null
         }
         Insert: {
-          category?: number | null
+          activate_from?: string
+          category_id: number
           created_at?: string
-          event_id?: string
+          event_id: string
           id?: string
           image_url?: string | null
-          max_quantity?: number | null
+          max_quantity: number
           price: number
-          sub_category?: number | null
+          sub_category_id?: number | null
           title: string
           title_en?: string | null
         }
         Update: {
-          category?: number | null
+          activate_from?: string
+          category_id?: number
           created_at?: string
           event_id?: string
           id?: string
           image_url?: string | null
-          max_quantity?: number | null
+          max_quantity?: number
           price?: number
-          sub_category?: number | null
+          sub_category_id?: number | null
           title?: string
           title_en?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "products_category_fkey"
-            columns: ["category"]
+            columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "categories"
             referencedColumns: ["id"]
@@ -350,10 +333,64 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "products_sub_category_fkey"
-            columns: ["sub_category"]
+            foreignKeyName: "products_sub_category_id_fkey"
+            columns: ["sub_category_id"]
+            isOneToOne: false
+            referencedRelation: "sub_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sub_categories: {
+        Row: {
+          allow_multiple: boolean
+          category_id: number
+          created_at: string
+          description: string | null
+          display_order: number
+          event_id: string
+          id: number
+          is_activate: boolean
+          title: string
+          title_en: string | null
+        }
+        Insert: {
+          allow_multiple?: boolean
+          category_id: number
+          created_at?: string
+          description?: string | null
+          display_order: number
+          event_id: string
+          id?: number
+          is_activate?: boolean
+          title: string
+          title_en?: string | null
+        }
+        Update: {
+          allow_multiple?: boolean
+          category_id?: number
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          event_id?: string
+          id?: number
+          is_activate?: boolean
+          title?: string
+          title_en?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sub_categories_category_id_fkey"
+            columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sub_categories_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
             referencedColumns: ["id"]
           },
         ]
