@@ -19,42 +19,48 @@ export default async function Home() {
   const hotEvents = [
     {
       id: 1,
-      name: "Summer Beats Festival",
-      date: "Aug 15-17",
+      icon: "CSI",
+      name: "Camp Swing It 2025",
+      date: "2025년 4월 4-7일",
       image: "/placeholder.svg?height=400&width=600",
+      link: "/event/Camp-Swing-It-2025",
     },
     {
       id: 2,
-      name: "Comedy Extravaganza",
-      date: "Sep 5",
+      icon: "new",
+      name: "새로운 이벤트가 기다리고 있습니다.",
+      date: "2024년",
       image: "/placeholder.svg?height=400&width=600",
+      link: "#",
     },
     {
       id: 3,
-      name: "Rock the Stadium",
-      date: "Oct 10",
+      icon: "new",
+      name: "새로운 이벤트가 기다리고 있습니다.",
+      date: "2025년",
       image: "/placeholder.svg?height=400&width=600",
+      link: "#",
     },
   ];
 
   const genres = [
-    { icon: <Music className="w-4 h-4" />, label: "Music" },
-    { icon: <Theater className="w-4 h-4" />, label: "Theater" },
-    { icon: <Trophy className="w-4 h-4" />, label: "Sports" },
-    { icon: <Utensils className="w-4 h-4" />, label: "Food & Drink" },
+    { icon: <Music className="w-4 h-4" />, label: "댄스" },
+    { icon: <Theater className="w-4 h-4" />, label: "공연" },
+    { icon: <Trophy className="w-4 h-4" />, label: "스포츠" },
+    { icon: <Utensils className="w-4 h-4" />, label: "푸드" },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-100 to-pink-100">
+    <div className="min-h-screen">
       <main className="max-w-5xl mx-auto px-6 py-16 space-y-24">
         <section className="text-center">
-          <h2 className="text-5xl font-bold text-gray-800 mb-6">
-            Discover Exciting Events
-          </h2>
-          <p className="text-2xl text-gray-600 mb-12">
+          <div className="text-xl font-bold text-gray-800 mb-6">
+            내 주변 신나는 이벤트를 한번에
+          </div>
+          {/* <p className="text-2xl text-gray-600 mb-12">
             Find and book tickets for the hottest festivals and events!
-          </p>
-          <div className="flex justify-center mb-12">
+          </p> */}
+          {/* <div className="flex justify-center mb-12">
             <div className="relative w-full max-w-2xl">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <Input
@@ -68,13 +74,13 @@ export default async function Home() {
             <Button className="ml-4 bg-purple-600 hover:bg-purple-700 text-white rounded-full px-8 py-3 text-sm shadow-lg transition-all duration-300 hover:shadow-xl">
               검색
             </Button>
-          </div>
+          </div> */}
           <div className="flex flex-wrap justify-center gap-6">
             {genres.map((genre, index) => (
               <Badge
                 key={index}
                 variant="outline"
-                className="text-lg py-3 px-6 bg-white bg-opacity-70 backdrop-blur-sm hover:bg-purple-100 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg"
+                className="text-sm text-gray-800 py-3 px-6 bg-white bg-opacity-70 backdrop-blur-sm hover:bg-purple-100 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg"
               >
                 {genre.icon}
                 <span className="ml-2">{genre.label}</span>
@@ -83,7 +89,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section>
+        {/* <section>
           <h3 className="text-3xl font-bold text-gray-800 mb-8">Hot Events</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {hotEvents.map((event) => (
@@ -112,62 +118,139 @@ export default async function Home() {
               </Card>
             ))}
           </div>
-        </section>
+        </section> */}
 
         <section>
-          <h3 className="text-3xl font-bold text-gray-800 mb-8">
-            Upcoming Events
+          <h3 className="text-base font-bold text-gray-800 mb-8">
+            예정 이벤트
           </h3>
           <Tabs defaultValue="all" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-8 bg-white bg-opacity-70 backdrop-blur-sm rounded-full p-2">
               <TabsTrigger value="all" className="rounded-full">
-                All
+                전체
               </TabsTrigger>
               <TabsTrigger value="this-week" className="rounded-full">
-                This Week
+                이번주
               </TabsTrigger>
               <TabsTrigger value="this-month" className="rounded-full">
-                This Month
+                이번달
               </TabsTrigger>
               <TabsTrigger value="next-month" className="rounded-full">
-                Next Month
+                다음달
               </TabsTrigger>
             </TabsList>
             <TabsContent value="all" className="space-y-6">
               {/* Example event items */}
-              {[1, 2, 3].map((item) => (
+              {hotEvents.map((item) => (
                 <Card
-                  key={item}
+                  key={item.name}
                   className="flex items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
                 >
-                  <div className="flex-shrink-0 w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
-                    <span className="text-white font-bold text-xl">
-                      {["JUL", "AUG", "SEP"][item - 1]}
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
+                    <span className="text-white font-bold text-sm">
+                      {item.icon}
                     </span>
                   </div>
                   <div className="flex-grow">
-                    <h4 className="text-xl font-semibold mb-2">
-                      Event Name {item}
+                    <h4 className="text-sm text-gray-700 font-semibold mb-2">
+                      {item.name}
                     </h4>
-                    <p className="text-gray-600">Location • Date and Time</p>
+                    <p className="text-sm text-gray-600">{item.date}</p>
                   </div>
-                  <Button
-                    variant="outline"
-                    className="ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
-                  >
-                    View
-                  </Button>
+                  <Link href={item.link}>
+                    <Button
+                      variant="outline"
+                      className="font-semibold text-gray-700 text-xs ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
+                    >
+                      보기
+                    </Button>
+                  </Link>
                 </Card>
               ))}
             </TabsContent>
-            <TabsContent value="this-week">
-              Content for this weeks events...
+            <TabsContent value="this-week" className="space-y-6">
+              {hotEvents.map((item) => (
+                <Card
+                  key={item.name}
+                  className="flex items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
+                >
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
+                    <span className="text-white font-bold text-sm">
+                      {item.icon}
+                    </span>
+                  </div>
+                  <div className="flex-grow">
+                    <h4 className="text-sm text-gray-700 font-semibold mb-2">
+                      {item.name}
+                    </h4>
+                    <p className="text-sm text-gray-600">{item.date}</p>
+                  </div>
+                  <Link href={item.link}>
+                    <Button
+                      variant="outline"
+                      className="font-semibold text-gray-700 text-xs ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
+                    >
+                      보기
+                    </Button>
+                  </Link>
+                </Card>
+              ))}
             </TabsContent>
-            <TabsContent value="this-month">
-              Content for this months events...
+            <TabsContent value="this-month" className="space-y-6">
+              {hotEvents.map((item) => (
+                <Card
+                  key={item.name}
+                  className="flex items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
+                >
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
+                    <span className="text-white font-bold text-sm">
+                      {item.icon}
+                    </span>
+                  </div>
+                  <div className="flex-grow">
+                    <h4 className="text-sm text-gray-700 font-semibold mb-2">
+                      {item.name}
+                    </h4>
+                    <p className="text-sm text-gray-600">{item.date}</p>
+                  </div>
+                  <Link href={item.link}>
+                    <Button
+                      variant="outline"
+                      className="font-semibold text-gray-700 text-xs ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
+                    >
+                      보기
+                    </Button>
+                  </Link>
+                </Card>
+              ))}
             </TabsContent>
-            <TabsContent value="next-month">
-              Content for next months events...
+            <TabsContent value="next-month" className="space-y-6">
+              {hotEvents.map((item) => (
+                <Card
+                  key={item.name}
+                  className="flex items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
+                >
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
+                    <span className="text-white font-bold text-sm">
+                      {item.icon}
+                    </span>
+                  </div>
+                  <div className="flex-grow">
+                    <h4 className="text-sm text-gray-700 font-semibold mb-2">
+                      {item.name}
+                    </h4>
+                    <p className="text-sm text-gray-600">{item.date}</p>
+                  </div>
+                  <Link href={item.link}>
+                    <Button
+                      variant="outline"
+                      className="font-semibold text-gray-700 text-xs ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
+                    >
+                      보기
+                    </Button>
+                  </Link>
+                </Card>
+              ))}
             </TabsContent>
           </Tabs>
         </section>
