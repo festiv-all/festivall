@@ -1,29 +1,29 @@
+"use client"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { createClient } from "@/utils/supabase/server";
+import { supabaseBrowser } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 import { CircleUserRound, LogOut, Ticket, UserCog } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default async function Header() {
-  // const supabase = supabaseBrowser();
-
-  const {
-    data: { user },
-  } = await createClient().auth.getUser();
-
-  // const handleLogout = async () => {
-  //   await supabase.auth.signOut();
-  //   router.refresh();
-  // };
+export default function Header({ user }: { user: User | undefined }) {
+  const supabase = supabaseBrowser();
+  const router = useRouter();
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+  };
 
   return (
     <div className="sticky z-50 top-0">
       <header className="max-w-5xl mx-auto bg-white bg-opacity-90 backdrop-blur-md">
-        <div className="mx-auto px-3 md:px-6 py-4 md:py-8 flex justify-between items-center">
+        <div className="mx-auto px-5 py-4 md:py-8 flex justify-between items-center">
           <Link href="/">
             <div className="text-md md:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
               Festivall
@@ -57,15 +57,15 @@ export default async function Header() {
                       align="end"
                       className="w-48 text-gray-700"
                     >
-                      <DropdownMenuItem>
+                      <DropdownMenuItem className="cursor-pointer">
                         <Ticket className="mr-2 h-4 w-4" />
                         <span>구매 내역</span>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
+                      <DropdownMenuItem className="cursor-pointer">
                         <UserCog className="mr-2 h-4 w-4" />
                         <span>내 정보</span>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
+                      <DropdownMenuItem onClick={handleLogout}>
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>로그아웃</span>
                       </DropdownMenuItem>

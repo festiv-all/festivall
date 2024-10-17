@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
+import { createClient } from "@/utils/supabase/server";
+import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Noto_Sans_KR } from "next/font/google";
+import localFont from "next/font/local";
+import "./globals.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,11 +28,14 @@ export const metadata: Metadata = {
   description: "All exciting festivals you wanted",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createClient();
+  const { data } = await supabase.auth.getUser();
+
   return (
     <html lang="en">
       <body
@@ -44,7 +48,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
+          <Header user={data?.user || undefined} />
           {children}
           <Footer />
         </ThemeProvider>
