@@ -3,7 +3,7 @@ export type cartProduct = {
   title: string;
   price: number;
   quantity: number;
-  category_id: number;
+  category_id: number | null;
   sub_category_id: number | null;
   category_allow_multiple: boolean;
   subcategory_allow_multiple?: boolean;

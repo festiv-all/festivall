@@ -17,7 +17,7 @@ export default function ProductCard({ product }: { product: Product }) {
     title: product.title,
     price: product.price,
     category_id: product.category_id,
-    sub_category_id: product?.sub_category_id,
+    sub_category_id: product.sub_category_id || null,
     quantity: 1,
     category_allow_multiple: product.categories?.allow_multiple || false,
     sub_category_allow_multiple:

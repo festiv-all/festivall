@@ -280,7 +280,7 @@ export type Database = {
       products: {
         Row: {
           activate_from: string
-          category_id: number
+          category_id: number | null
           created_at: string
           event_id: string
           id: string
@@ -293,7 +293,7 @@ export type Database = {
         }
         Insert: {
           activate_from?: string
-          category_id: number
+          category_id?: number | null
           created_at?: string
           event_id: string
           id?: string
@@ -306,7 +306,7 @@ export type Database = {
         }
         Update: {
           activate_from?: string
-          category_id?: number
+          category_id?: number | null
           created_at?: string
           event_id?: string
           id?: string
