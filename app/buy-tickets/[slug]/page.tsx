@@ -1,8 +1,6 @@
 import OrderSummary from "@/components/orders/OrderSummary";
 import ProductCard from "@/components/products/ProductCard";
-import { Product } from "@/lib/types/product";
 import { createClient } from "@/utils/supabase/server";
-import { categoriesOrder } from "@/utils/utils";
 import { Calendar, MapPin } from "lucide-react";
 import Image from "next/image";
 
@@ -24,17 +22,6 @@ export default async function BuyTicketsPage({
     .from("categories")
     .select("*, events(title), products(*), sub_categories(*, products(*))")
     .eq("events.title", title);
-  console.log(categories);
-  // console.log(event);
-  let products;
-  let subcategories;
-
-  // if (event?.products) {
-  //   let products: Product[] | null = event?.products;
-  // }
-
-  // let categories = categoriesOrder(products.map((pr) => pr.categories));
-  // console.log(categories);
 
   return (
     <div className="container mx-auto max-w-5xl px-5 py-6 text-xs lg:text-sm">
