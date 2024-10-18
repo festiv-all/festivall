@@ -20,7 +20,9 @@ export default async function BuyTicketsPage({
 
   const { data: categories } = await supabase
     .from("categories")
-    .select("*, events(title), products(*), sub_categories(*, products(*))")
+    .select(
+      "*, events(title), products(*, categories(*), sub_categories(*)), sub_categories(*, products(*))"
+    )
     .eq("events.title", title);
 
   return (

@@ -19,8 +19,9 @@ export default function ProductCard({ product }: { product: Product }) {
     category_id: product.category_id,
     sub_category_id: product?.sub_category_id,
     quantity: 1,
-    category_allow_multiple: product.categories?.allow_multiple,
-    sub_category_allow_multiple: product?.sub_categories?.allow_multiple,
+    category_allow_multiple: product.categories?.allow_multiple || false,
+    sub_category_allow_multiple:
+      product.sub_categories?.allow_multiple || false,
   };
 
   return (
