@@ -42,6 +42,8 @@ export const useCartStore = create(
         );
         const itemToRemoveBySubCategory = cart.filter(
           (item) =>
+            item?.sub_category_id &&
+            product?.sub_category_id &&
             item?.sub_category_id === product?.sub_category_id &&
             item.product_id !== product.product_id
         );
