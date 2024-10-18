@@ -64,7 +64,7 @@ export default async function EventDetailPage({
                   <a target="_blank" href="https://camp.swingit.kr/">
                     <Button className="w-full md:w-auto" variant="outline">
                       <Globe className="w-4 h-4 mr-2" />
-                      Visit Homepage
+                      홈페이지 바로가기
                     </Button>
                   </a>
                 </div>
@@ -74,7 +74,7 @@ export default async function EventDetailPage({
                   >
                     <Button className="w-full md:w-auto">
                       <Ticket className="w-4 h-4 mr-2" />
-                      Buy Tickets
+                      티켓 구매하기
                     </Button>
                   </Link>
                 </div>

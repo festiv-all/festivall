@@ -319,7 +319,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "products_category_fkey"
+            foreignKeyName: "products_category_id_fkey"
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "categories"
@@ -458,10 +458,10 @@ export type Database = {
           email: string
           id: string
           is_organizer: boolean | null
+          name: string
           nickname: string | null
           phone: string | null
           provider: string | null
-          username: string
           username_en: string | null
         }
         Insert: {
@@ -471,10 +471,10 @@ export type Database = {
           email: string
           id?: string
           is_organizer?: boolean | null
+          name: string
           nickname?: string | null
           phone?: string | null
           provider?: string | null
-          username: string
           username_en?: string | null
         }
         Update: {
@@ -484,10 +484,10 @@ export type Database = {
           email?: string
           id?: string
           is_organizer?: boolean | null
+          name?: string
           nickname?: string | null
           phone?: string | null
           provider?: string | null
-          username?: string
           username_en?: string | null
         }
         Relationships: []
