@@ -1,6 +1,7 @@
 import OrderSummary from "@/components/orders/OrderSummary";
 import ProductCard from "@/components/products/ProductCard";
 import { createClient } from "@/utils/supabase/server";
+import { eventDatesDisplay } from "@/utils/utils";
 import { Calendar, MapPin } from "lucide-react";
 import Image from "next/image";
 
@@ -43,7 +44,7 @@ export default async function BuyTicketsPage({
             </h1>
             <div className="flex items-center text-gray-600 mb-1">
               <Calendar className="w-3 h-3 lg:w-4 lg:h-4 mr-1 lg:mr-2" />
-              <span>{event.date_start}</span>
+              <span>{eventDatesDisplay(event.date_start, event.date_end)}</span>
             </div>
             <div className="flex items-center text-gray-600">
               <MapPin className="w-3 h-3 lg:w-4 lg:h-4 mr-1 lg:mr-2" />
@@ -51,8 +52,8 @@ export default async function BuyTicketsPage({
             </div>
           </div>
 
-          <div className="lg:flex lg:gap-8 mt-16">
-            <div className="lg:flex-grow">
+          <div className="lg:flex lg:gap-8 mt-16 md:grid-cols-3 lg:grid-cols-4">
+            <div className="lg:flex-grow md:col-span-2 lg:col-span-3">
               {categories?.map(
                 (cate) =>
                   cate.products.length > 0 && (

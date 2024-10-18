@@ -71,30 +71,28 @@ export default function OrderSummary() {
   );
 
   return (
-    cart.length > 0 && (
-      <div className="lg:flex-grow">
-        <div className="hidden lg:block sticky top-24">
-          <OrderSum />
-        </div>
-        <div className="fixed bottom-2 right-2 lg:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button size="sm" className="text-xs">
-                <ShoppingCart className="mr-1 h-3 w-3" />
-                View Order ({getCurrencyInWon(totalPrice)})
-              </Button>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle className="text-base lg:text-lg">
-                  Order Summary
-                </SheetTitle>
-              </SheetHeader>
-              <OrderSum />
-            </SheetContent>
-          </Sheet>
-        </div>
+    <div className={`lg:flex-grow ${cart.length > 0 ? "block" : "invisible"}`}>
+      <div className="hidden lg:block sticky top-24">
+        <OrderSum />
       </div>
-    )
+      <div className="fixed bottom-2 right-2 lg:hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="sm" className="text-xs">
+              <ShoppingCart className="mr-1 h-3 w-3" />
+              View Order ({getCurrencyInWon(totalPrice)})
+            </Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle className="text-base lg:text-lg">
+                Order Summary
+              </SheetTitle>
+            </SheetHeader>
+            <OrderSum />
+          </SheetContent>
+        </Sheet>
+      </div>
+    </div>
   );
 }
