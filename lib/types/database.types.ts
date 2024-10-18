@@ -63,6 +63,7 @@ export type Database = {
           description: string | null
           homepage: string | null
           id: string
+          image_url: string | null
           link_facebook: string | null
           link_instagram: string | null
           link_youtube: string | null
@@ -79,6 +80,7 @@ export type Database = {
           description?: string | null
           homepage?: string | null
           id?: string
+          image_url?: string | null
           link_facebook?: string | null
           link_instagram?: string | null
           link_youtube?: string | null
@@ -95,6 +97,7 @@ export type Database = {
           description?: string | null
           homepage?: string | null
           id?: string
+          image_url?: string | null
           link_facebook?: string | null
           link_instagram?: string | null
           link_youtube?: string | null

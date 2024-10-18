@@ -21,25 +21,27 @@ export default async function EventDetailPage({
   params: { slug: string };
 }) {
   const supabase = createClient();
-  const event_title = params.slug.replaceAll("-", " ");
+  // const event_title = params.slug.replaceAll("-", " ");
   const { data: event } = await supabase
     .from("events")
     .select("*,organizers(*)")
-    .eq("title", event_title)
+    .eq("id", params.slug)
     .single();
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-8 md:pt-12 md:pb-36">
       {event ? (
         <Card className="overflow-hidden">
-          <div className="h-64 relative">
-            <Image
-              src="/campswingit.jpg"
-              alt={event.title}
-              className="w-full relative object-cover"
-              fill
-            />
-          </div>
+          {event.image_url && (
+            <div className="h-64 relative">
+              <Image
+                src="/campswingit.jpg"
+                alt={event.title}
+                className="w-full relative object-cover"
+                fill
+              />
+            </div>
+          )}
           <CardContent className="p-6">
             <h1 className="text-md md:text-xl font-bold mb-4 text-gray-800">
               {event.title}
@@ -71,9 +73,7 @@ export default async function EventDetailPage({
                   </a>
                 </div>
                 <div>
-                  <Link
-                    href={`/buy-tickets/${event.title.replaceAll(" ", "-")}`}
-                  >
+                  <Link href={`/buy-tickets/${event.id}`}>
                     <Button className="w-full md:w-auto">
                       <Ticket className="w-4 h-4 mr-2" />
                       티켓 구매하기
