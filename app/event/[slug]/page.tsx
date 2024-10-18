@@ -41,8 +41,10 @@ export default async function EventDetailPage({
             />
           </div>
           <CardContent className="p-6">
-            <h1 className="text-md md:text-xl font-bold mb-4">{event.title}</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <h1 className="text-md md:text-xl font-bold mb-4 text-gray-800">
+              {event.title}
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-gray-700">
               <div className="space-y-2">
                 <div className="flex items-center text-sm md:text-md">
                   <Calendar className="w-5 h-5 mr-2 text-gray-500" />
@@ -82,7 +84,7 @@ export default async function EventDetailPage({
             </div>
             <Separator className="my-6" />
             <div className="space-y-4">
-              <h2 className="text-md md:text-xl font-semibold">
+              <h2 className="text-md md:text-xl font-semibold text-gray-800">
                 About the Event
               </h2>
               <p className="text-gray-700 text-sm md:text-md">
@@ -91,7 +93,7 @@ export default async function EventDetailPage({
             </div>
             <Separator className="my-6" />
             <div>
-              <h2 className="text-md md:text-xl font-semibold mb-4">
+              <h2 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
                 Connect with us
               </h2>
               <div className="flex space-x-4">
