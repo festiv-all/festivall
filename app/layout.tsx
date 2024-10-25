@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Noto_Sans_KR } from "next/font/google";
 import localFont from "next/font/local";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -50,6 +51,21 @@ export default async function RootLayout({
         >
           <Header user={data?.user || undefined} />
           {children}
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              className: "min-w-[280px]",
+              style: {
+                fontSize: "0.85rem",
+              },
+            }}
+            containerStyle={{
+              top: 70,
+              left: 50,
+              bottom: 50,
+              right: 50,
+            }}
+          />
           <Footer />
         </ThemeProvider>
       </body>
