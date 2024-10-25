@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   DropdownMenu,
@@ -11,6 +11,7 @@ import { User } from "@supabase/supabase-js";
 import { CircleUserRound, LogOut, Ticket, UserCog } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function Header({ user }: { user: User | undefined }) {
   const supabase = supabaseBrowser();
@@ -18,6 +19,7 @@ export default function Header({ user }: { user: User | undefined }) {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.refresh();
+    toast.success("Logout successful");
   };
 
   return (

@@ -35,7 +35,7 @@ export default function Footer() {
               <p>대표전화: </p>
               <p>이메일: festivall.my@gmail.com</p>
               <p>사업자등록번호: 408-29-15218</p>
-              <p>통신판매업신고: 408-29-15218</p>
+              <p>통신판매업신고:</p>
             </div>
             <div></div>
           </div>
