@@ -8,14 +8,14 @@ import Link from "next/link";
 export default async function Home() {
   // const [searchQuery, setSearchQuery] = useState("");
   const hotEvents = [
-    {
-      id: 1,
-      icon: "BK",
-      name: "The Battle Korea Showdown 2024",
-      date: "2024년 11월 22-24일",
-      image: "/placeholder.svg?height=400&width=600",
-      link: "/event/7520bc67-aa5d-475d-a391-4ac5380e7f6d",
-    },
+    // {
+    //   id: 1,
+    //   icon: "BK",
+    //   name: "The Battle Korea Showdown 2024",
+    //   date: "2024년 11월 22-24일",
+    //   image: "/placeholder.svg?height=400&width=600",
+    //   link: "/event/7520bc67-aa5d-475d-a391-4ac5380e7f6d",
+    // },
     {
       id: 2,
       icon: "SOC",
