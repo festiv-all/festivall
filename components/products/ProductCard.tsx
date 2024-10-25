@@ -16,6 +16,7 @@ export default function ProductCard({ product }: { product: Product }) {
     product_id: product.id,
     title: product.title,
     price: product.price,
+    event_id: product.event_id,
     category_id: product.category_id,
     sub_category_id: product.sub_category_id || null,
     quantity: 1,
