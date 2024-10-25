@@ -16,12 +16,12 @@ export default async function BuyTicketsPage({
   const { data: event } = await supabase
     .from("events")
     .select(
-      "*, products(*, categories(*), sub_categories(*)), organizers(id, corp_name)"
+      "*, products(*, categories(*), sub_categories(*)), organizers(id, corp_name, corp_number)"
     )
     .eq("id", params.slug)
     .single();
-  console.log("idd", params.slug);
-  console.log(event);
+  // console.log("idd", params.slug);
+  // console.log(event);
 
   const { data: categories } = await supabase
     .from("categories")
@@ -29,7 +29,7 @@ export default async function BuyTicketsPage({
       "*, events(title), products(*, categories(*), sub_categories(*)), sub_categories(*, products(*))"
     )
     .eq("event_id", params.slug);
-  console.log(categories);
+  // console.log(categories);
 
   return (
     <div className="container mx-auto max-w-5xl px-5 py-6 text-xs lg:text-sm">
@@ -88,7 +88,7 @@ export default async function BuyTicketsPage({
               )}
             </div>
 
-            <OrderSummary />
+            <OrderSummary event_id={event.id} />
           </div>
         </div>
       ) : (
