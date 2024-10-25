@@ -90,6 +90,31 @@ export default async function EventDetailPage({
               <p className="text-gray-700 text-sm md:text-md">
                 {event.description}
               </p>
+              <div className="text-base md:text-base font-semibold text-gray-800">
+                사업자 정보
+              </div>
+              <table className="w-full text-sm md:text-md border-collapse">
+                <tbody>
+                  <tr>
+                    <td className="text-gray-700 pr-4 border border-gray-300 p-2">
+                      사업자명
+                    </td>
+                    <td className="text-gray-700 border border-gray-300 p-2">
+                      {event.organizers?.corp_name}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="text-gray-700 pr-4 border border-gray-300 p-2">
+                      사업자 등록번호
+                    </td>
+                    <td className="text-gray-700 border border-gray-300 p-2">
+                      {event.organizers?.corp_number
+                        ?.toString()
+                        .replace(/(\d{3})(\d{2})(\d{5})/, "$1-$2-$3")}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <Separator className="my-6" />
             <div>

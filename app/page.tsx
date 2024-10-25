@@ -10,11 +10,11 @@ export default async function Home() {
   const hotEvents = [
     {
       id: 1,
-      icon: "GG",
-      name: "Gentle Gifters - 24년 11월",
-      date: "2024년 11월 7-28일",
+      icon: "BK",
+      name: "The Battle Korea Showdown 2024",
+      date: "2024년 11월 22-24일",
       image: "/placeholder.svg?height=400&width=600",
-      link: "/event/b3cbaac3-8d03-4374-a723-207f4eb1fd77",
+      link: "/event/7520bc67-aa5d-475d-a391-4ac5380e7f6d",
     },
     {
       id: 2,
