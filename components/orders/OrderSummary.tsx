@@ -14,12 +14,17 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 
-export default function OrderSummary() {
+export default function OrderSummary({ event_id }: { event_id: string }) {
   const cart = useCartStore((state) => state.cart);
+  // const getCart = useCartStore((state) => state.getCart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const cleanCart = useCartStore((state) => state.cleanCart);
   const totalPrice = useCartStore((state) => state.totalPrice);
   const totalItems = useCartStore((state) => state.totalItems);
+  // console.log("=====", getCart);
+  // if (useCartStore.getState().cart().length > 0 && cart[0]?.event_id !== event_id) {
+  //   cleanCart();
+  // }
 
   const OrderSum = () => (
     <Card className="mt-6 lg:mt-0">
