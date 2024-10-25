@@ -63,8 +63,8 @@ export async function signup(formData: FormData) {
   // revalidatePath("/", "layout");
 }
 
-export async function forgotPassword(formData: FormData) {
-  const supabase = createClient();
+export async function forgotPassword() {
+  // const supabase = createClient();
 
   return;
   // type-casting here for convenience
