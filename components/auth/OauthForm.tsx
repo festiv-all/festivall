@@ -1,5 +1,9 @@
+"use client";
+
 import { supabaseBrowser } from "@/utils/supabase/client";
 import { Button } from "../ui/button";
+import Link from "next/link";
+import { Mail } from "lucide-react";
 
 export default function OauthForm() {
   const supabase = supabaseBrowser();
@@ -23,12 +27,12 @@ export default function OauthForm() {
 
   return (
     <div className="grid grid-cols-1 gap-3 text-gray-800 font-semibold">
-      {/* <Link href="/login/email">
+      <Link href="/login/email">
         <Button variant="outline" className="w-full h-12 items-center">
-          <Mail className="w-5 h-5  mr-2" />
+          <Mail className="w-4 h-4 mr-2 text-gray-700" />
           이메일로 계속하기
         </Button>
-      </Link> */}
+      </Link>
       <Button
         variant="outline"
         onClick={handleLoginWithGoogle}
