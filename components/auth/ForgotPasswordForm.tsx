@@ -39,16 +39,16 @@ export default function ForgotPasswordForm({
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value.toString());
     });
-    const { result } = await forgotPassword(formData);
-    console.log("loginresult", result);
-    if (result?.data?.user?.id) {
-      toast.success("Login successful");
-      router.push("/");
-    } else if (result?.error) {
-      toast.error("Login failed");
-    } else {
-      toast.error("Login failed");
-    }
+    // const { result } = await forgotPassword(formData);
+    // console.log("loginresult", result);
+    // if (result?.data?.user?.id) {
+    //   toast.success("Login successful");
+    //   router.push("/");
+    // } else if (result?.error) {
+    //   toast.error("Login failed");
+    // } else {
+    //   toast.error("Login failed");
+    // }
   };
 
   return (
