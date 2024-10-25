@@ -211,6 +211,7 @@ export type Database = {
           address: string | null
           avatar_url: string | null
           corp_name: string | null
+          corp_number: number | null
           created_at: string
           email: string | null
           id: string
@@ -222,6 +223,7 @@ export type Database = {
           address?: string | null
           avatar_url?: string | null
           corp_name?: string | null
+          corp_number?: number | null
           created_at?: string
           email?: string | null
           id?: string
@@ -233,6 +235,7 @@ export type Database = {
           address?: string | null
           avatar_url?: string | null
           corp_name?: string | null
+          corp_number?: number | null
           created_at?: string
           email?: string | null
           id?: string
