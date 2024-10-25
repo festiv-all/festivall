@@ -1,5 +1,6 @@
 export type cartProduct = {
   product_id: string;
+  event_id: string;
   title: string;
   price: number;
   quantity: number;
