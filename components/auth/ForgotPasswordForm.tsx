@@ -1,6 +1,5 @@
 "use client";
 
-import { forgotPassword } from "@/app/login/authActions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,7 +11,6 @@ import { User } from "@supabase/supabase-js";
 import { Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 
 export default function ForgotPasswordForm({
   user,
