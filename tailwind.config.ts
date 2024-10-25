@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       fontSize: {
         xxs: "0.625rem",
+        s: "0.81rem",
       },
       colors: {
         background: "hsl(var(--background))",

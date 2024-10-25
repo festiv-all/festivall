@@ -84,3 +84,13 @@ body {
     margin: 0;
   }
 }
+
+.markdown > * {
+  all: revert;
+}
+
+@layer base {
+  .markdown {
+    @apply text-gray-800 text-sm
+  }
+}
