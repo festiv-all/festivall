@@ -14,7 +14,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 
-export default function OrderSummary({ event_id }: { event_id: string }) {
+export default function OrderSummary() {
   const cart = useCartStore((state) => state.cart);
   // const getCart = useCartStore((state) => state.getCart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);

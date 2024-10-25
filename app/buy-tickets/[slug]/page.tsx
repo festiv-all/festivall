@@ -88,7 +88,7 @@ export default async function BuyTicketsPage({
               )}
             </div>
 
-            <OrderSummary event_id={event.id} />
+            <OrderSummary />
           </div>
         </div>
       ) : (
