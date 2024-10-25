@@ -10,11 +10,11 @@ export default async function Home() {
   const hotEvents = [
     {
       id: 1,
-      icon: "CSI",
-      name: "Camp Swing It 2025",
-      date: "2025년 4월 4-7일",
+      icon: "GG",
+      name: "Gentle Gifters - 24년 11월",
+      date: "2024년 11월 7-28일",
       image: "/placeholder.svg?height=400&width=600",
-      link: "/event/921e3430-231a-4822-9d1e-94625eae352e",
+      link: "/event/b3cbaac3-8d03-4374-a723-207f4eb1fd77",
     },
     {
       id: 2,
