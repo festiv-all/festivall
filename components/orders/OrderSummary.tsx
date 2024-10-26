@@ -65,7 +65,7 @@ export default function OrderSummary() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    requestPayment();
+    // requestPayment();
     // router.push("/order-payment");
   };
 
