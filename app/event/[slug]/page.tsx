@@ -83,39 +83,83 @@ export default async function EventDetailPage({
               </div>
             </div>
             <Separator className="my-6" />
-            <div className="space-y-4">
+            <div className="space-y-8">
               <h2 className="text-md md:text-xl font-semibold text-gray-800">
                 About the Event
               </h2>
-              <p className="text-gray-700 text-sm md:text-md">
-                {event.description}
-              </p>
-              <div className="text-base md:text-base font-semibold text-gray-800">
-                사업자 정보
+              <div className="space-y-4">
+                <div className="text-base md:text-base font-semibold text-gray-800">
+                  개요
+                </div>
+                <p className="text-gray-700 text-sm md:text-md">
+                  {event.description}
+                </p>
               </div>
-              <table className="w-full text-sm md:text-md border-collapse">
-                <tbody>
-                  <tr>
-                    <td className="text-gray-700 pr-4 border border-gray-300 p-2">
-                      사업자명
-                    </td>
-                    <td className="text-gray-700 border border-gray-300 p-2">
-                      {event.organizers?.corp_name}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="text-gray-700 pr-4 border border-gray-300 p-2">
-                      사업자 등록번호
-                    </td>
-                    <td className="text-gray-700 border border-gray-300 p-2">
-                      {event.organizers?.corp_number
-                        ?.toString()
-                        .replace(/(\d{3})(\d{2})(\d{5})/, "$1-$2-$3")}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className="space-y-4">
+                <div className="text-base md:text-base font-semibold text-gray-800">
+                  사업자 정보
+                </div>
+                <table className="w-full text-sm md:text-md max-w-sm">
+                  <tbody>
+                    <tr>
+                      <td className="text-gray-700 pr-4 border-t border-b bg-gray-100 p-2">
+                        사업자명
+                      </td>
+                      <td className="text-gray-700 border-t border-b p-2">
+                        {event.organizers?.corp_name}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-gray-700 pr-4 border-b bg-gray-100 p-2">
+                        사업자 등록번호
+                      </td>
+                      <td className="text-gray-700 border-b p-2">
+                        {event.organizers?.corp_number
+                          ?.toString()
+                          .replace(/(\d{3})(\d{2})(\d{5})/, "$1-$2-$3")}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="space-y-4">
+                <div className="text-base md:text-base font-semibold text-gray-800">
+                  취소 및 환불
+                </div>
+                <div className="text-gray-700 text-sm md:text-md">
+                  {`취소일자에 따라서 아래와 같이 취소수수료가 부과됩니다. 결제일
+                  기준보다 시작일 기준이 우선 적용됩니다.\n단, 결제 당일 밤 12시
+                  이전 취소 시에는 취소수수료가 없습니다.`}
+                </div>
+                <table className="w-full text-sm md:text-md max-w-sm">
+                  <thead className="text-gray-700 pr-4 border-t border-b bg-gray-100 p-2">
+                    <tr className="text-gray-700 border-t border-b">
+                      <th className="p-2">취소일</th>
+                      <th className="p-2">취소수수료</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="text-gray-700 border-t border-b p-2">
+                      <td className="p-2">결제 후 7일 이내</td>
+                      <td className="p-2">없음</td>
+                    </tr>
+                    <tr className="text-gray-700 border-t border-b">
+                      <td className="p-2">시작일 9일전~7일전까지</td>
+                      <td className="p-2">금액의 10%</td>
+                    </tr>
+                    <tr className="text-gray-700 border-t border-b">
+                      <td className="p-2">시작일 6일전~3일전까지</td>
+                      <td className="p-2">금액의 20%</td>
+                    </tr>
+                    <tr className="text-gray-700 border-t border-b">
+                      <td className="p-2">시작일 2일전~1일전까지</td>
+                      <td className="p-2">금액의 30%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+
             <Separator className="my-6" />
             <div>
               <h2 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
