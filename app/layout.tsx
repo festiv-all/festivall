@@ -7,6 +7,7 @@ import { Noto_Sans_KR } from "next/font/google";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import InitUser from "@/lib/store/InitUser";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,10 +39,9 @@ export default async function RootLayout({
   const { data } = await supabase.auth.getUser();
 
   return (
-    <html lang="en">
+    <html lang="ko" suppressHydrationWarning>
       <body
         className={`${notoSansKr.className} ${geistSans.variable} ${geistMono.variable} antialiased `}
-        suppressHydrationWarning={true}
       >
         <ThemeProvider
           attribute="class"
@@ -68,6 +68,7 @@ export default async function RootLayout({
           />
           <Footer />
         </ThemeProvider>
+        <InitUser user={data?.user || undefined} />
       </body>
     </html>
   );
