@@ -1,7 +1,7 @@
 export type cartProduct = {
   product_id: string;
+  product_title: string;
   event_id: string;
-  title: string;
   price: number;
   quantity: number;
   category_id: number | null;

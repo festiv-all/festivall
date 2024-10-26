@@ -7,16 +7,20 @@ import { X } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function BuyTicketProductCard({
+  product,
+}: {
+  product: Product;
+}) {
   const cart = useCartStore((state) => state.cart);
   const addToCart = useCartStore((state) => state.addToCart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const isInCart = cart.filter((item) => item.product_id === product.id).length;
   const cartProduct = {
-    product_id: product.id,
-    title: product.title,
-    price: product.price,
     event_id: product.event_id,
+    product_id: product.id,
+    product_title: product.title,
+    price: product.price,
     category_id: product.category_id,
     sub_category_id: product.sub_category_id || null,
     quantity: 1,

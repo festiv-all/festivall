@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware";
 
 interface CartState {
   cart: cartProduct[];
+  event_id: string;
+  event_title: string;
   totalItems: number;
   totalPrice: number;
   // addItemToCart: (item: Tables<"products">) => void;
@@ -19,6 +21,8 @@ interface Actions {
 // Initialize a default state
 const INITIAL_STATE: CartState = {
   cart: [],
+  event_id: "",
+  event_title: "",
   totalItems: 0,
   totalPrice: 0,
 };
@@ -28,8 +32,11 @@ export const useCartStore = create(
   persist<CartState & Actions>(
     (set, get) => ({
       cart: INITIAL_STATE.cart,
+      event_id: INITIAL_STATE.event_id,
+      event_title: INITIAL_STATE.event_title,
       totalItems: INITIAL_STATE.totalItems,
       totalPrice: INITIAL_STATE.totalPrice,
+      getCart: () => get().cart,
       addToCart: (product: cartProduct) => {
         const cart = get().cart;
         const cartItem = cart.find(

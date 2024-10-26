@@ -1,5 +1,6 @@
-import OrderSummary from "@/components/orders/OrderSummary";
-import ProductCard from "@/components/products/ProductCard";
+import TicketSummary from "@/components/orders/TicketSummary";
+import BuyTicketProductCard from "@/components/products/BuyTicketProductCard";
+import InitCart from "@/lib/store/initCart";
 import { createClient } from "@/utils/supabase/server";
 import { eventDatesDisplay } from "@/utils/utils";
 import { Calendar, MapPin } from "lucide-react";
@@ -63,9 +64,15 @@ export default async function BuyTicketsPage({
             <div className="lg:flex-grow md:col-span-2 lg:col-span-3">
               {categories?.length === 0 ? (
                 <div className="mb-10 lg:mb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {event?.products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
+                  {event?.products.map((product) => {
+                    product.event_id = event.id;
+                    return (
+                      <BuyTicketProductCard
+                        key={product.id}
+                        product={product}
+                      />
+                    );
+                  })}
                 </div>
               ) : (
                 categories?.map(
@@ -79,7 +86,10 @@ export default async function BuyTicketsPage({
                           {cate.products
                             ?.filter((pr) => pr.category_id === cate.id)
                             .map((item) => (
-                              <ProductCard key={item.id} product={item} />
+                              <BuyTicketProductCard
+                                key={item.id}
+                                product={item}
+                              />
                             ))}
                         </div>
                       </div>
@@ -88,7 +98,8 @@ export default async function BuyTicketsPage({
               )}
             </div>
 
-            <OrderSummary />
+            <InitCart event={event} />
+            <TicketSummary event_id={event.id} />
           </div>
         </div>
       ) : (
