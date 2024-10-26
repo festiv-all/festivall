@@ -9,29 +9,23 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useCartStore from "@/lib/store/cart";
 import useAttendeeStore from "@/lib/store/attendee";
-import { useUser } from "@/lib/store/user";
-import { supabaseBrowser } from "@/utils/supabase/client";
-import { Mail, Phone, User } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import useCartStore from "@/lib/store/cart";
 import InitAttendees from "@/lib/store/initAttendees";
+import { useUser } from "@/lib/store/user";
+import { Mail, Phone, User } from "lucide-react";
+import { useState } from "react";
 
 export default function AttendeeForm() {
   const [copyInfo, setCopyInfo] = useState(false);
-  const router = useRouter();
   const cart = useCartStore((state) => state.cart);
   const user = useUser((state) => state.user);
   const attendees = useAttendeeStore((state) => state.attendees);
-  const addAttendee = useAttendeeStore((state) => state.addAttendee);
   const updateAttendee = useAttendeeStore((state) => state.updateAttendee);
   const addAttendeeName = useAttendeeStore((state) => state.addAttendeeName);
   const removeAttendeeName = useAttendeeStore(
     (state) => state.removeAttendeeName
   );
-  const DEBOUNCE_TIME_MS = 300;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (copyInfo && e.target.form?.className.split(" ")[1] === "form-1") {

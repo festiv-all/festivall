@@ -23,7 +23,6 @@ export default function TicketSummary({ event_id }: { event_id: string }) {
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const cleanCart = useCartStore((state) => state.cleanCart);
   const totalPrice = useCartStore((state) => state.totalPrice);
-  const totalItems = useCartStore((state) => state.totalItems);
   const attendees = useAttendeeStore((state) => state.attendees);
   const cleanAttendees = useAttendeeStore((state) => state.cleanAttendees);
   useEffect(() => {
