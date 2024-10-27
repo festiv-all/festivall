@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useAttendeeStore from "@/lib/store/attendee";
 import useCartStore from "@/lib/store/cart";
-import InitAttendees from "@/lib/store/initAttendees";
 import { useUser } from "@/lib/store/user";
 import { Mail, MapPin, Notebook, Phone, User } from "lucide-react";
 import { useState } from "react";

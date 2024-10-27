@@ -13,11 +13,8 @@ import { useAttendeeStore } from "@/lib/store/attendee";
 import useCartStore from "@/lib/store/cart";
 import { getCurrencyInWon } from "@/utils/utils";
 import * as PortOne from "@portone/browser-sdk/v2";
-import crypto from "crypto";
-import { useRouter } from "next/navigation";
-
+import { v4 as uuidv4 } from "uuid";
 import React, { useEffect } from "react";
-import toast from "react-hot-toast";
 
 export default function OrderSummary() {
   const cart = useCartStore((state) => state.cart);
@@ -37,28 +34,28 @@ export default function OrderSummary() {
     });
   }, [cart]);
 
-  // const requestPayment = async () => {
-  //   const response = await PortOne.requestPayment({
-  //     // Store ID 설정
-  //     storeId: "store-4fbfda2d-0bd5-4c21-8885-5efc9d4387f2",
-  //     // 채널 키 설정
-  //     channelKey: "channel-key-7120fdf8-b197-4cdd-993b-7cc81cfcccb8",
-  //     paymentId: crypto.randomUUID(),
-  //     orderName: `[${event_title.slice(0, 10)}${
-  //       event_title.length > 10 ? ".." : ""
-  //     }] ${cart[0].product_title} and ${
-  //       cart.length > 1 ? cart.length - 1 + " more" : ""
-  //     }`,
-  //     totalAmount: totalPrice,
-  //     currency: "CURRENCY_KRW",
-  //     payMethod: "CARD",
-  //   });
-  //   console.log("response", response);
-  // };
+  const requestPayment = async () => {
+    const response = await PortOne.requestPayment({
+      // Store ID 설정
+      storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID!,
+      // 채널 키 설정
+      channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY!,
+      paymentId: uuidv4(),
+      orderName: `[${event_title.slice(0, 10)}${
+        event_title.length > 10 ? ".." : ""
+      }] ${cart[0].product_title} & ${
+        cart.length > 1 ? cart.length - 1 + " more" : ""
+      }`,
+      totalAmount: totalPrice,
+      currency: "CURRENCY_KRW",
+      payMethod: "CARD",
+    });
+    console.log("response", response);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // requestPayment();
+    requestPayment();
     // router.push("/order-payment");
   };
 

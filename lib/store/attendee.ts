@@ -31,7 +31,7 @@ export const useAttendeeStore = create(
         const otherAttendees = get().attendees.filter(
           (att) => att.product_id !== attendee.product_id
         );
-        set((state) => ({
+        set(() => ({
           attendees: [...otherAttendees, attendee],
         }));
       },
