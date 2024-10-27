@@ -46,7 +46,7 @@ export default async function Home() {
       <main className="max-w-5xl mx-auto px-6 py-16 space-y-24">
         <section className="text-center">
           <div className="text-xl font-bold text-gray-800 mb-6">
-            내 인생의 즐거움이 여기에
+            내 인생의 즐거움을 찾으세요
           </div>
           {/* <p className="text-2xl text-gray-600 mb-12">
             Find and book tickets for the hottest festivals and events!
@@ -66,12 +66,12 @@ export default async function Home() {
               검색
             </Button>
           </div> */}
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-3">
             {genres.map((genre, index) => (
               <Badge
                 key={index}
                 variant="outline"
-                className="text-sm text-gray-800 py-3 px-6 bg-white bg-opacity-70 backdrop-blur-sm hover:bg-purple-100 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg"
+                className="text-sm text-gray-800 py-3 px-4 bg-white bg-opacity-70 backdrop-blur-sm hover:bg-purple-100 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg"
               >
                 {genre.icon}
                 <span className="ml-2">{genre.label}</span>
@@ -112,7 +112,7 @@ export default async function Home() {
         </section> */}
 
         <section>
-          <h3 className="text-base font-bold text-gray-800 mb-8">
+          <h3 className="text-base font-bold text-gray-800 mb-4">
             예정 이벤트
           </h3>
           <Tabs defaultValue="all" className="w-full">
@@ -130,31 +130,25 @@ export default async function Home() {
                 다음달
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="all" className="space-y-6">
+            <TabsContent value="all" className="space-y-4">
               {/* Example event items */}
               {hotEvents.map((item) => (
                 <Card
                   key={item.name}
-                  className="flex items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
+                  className="p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
-                    <span className="text-white font-bold text-sm">
-                      {item.icon}
-                    </span>
-                  </div>
-                  <div className="flex-grow">
-                    <h4 className="text-sm text-gray-700 font-semibold mb-2">
-                      {item.name}
-                    </h4>
-                    <p className="text-sm text-gray-600">{item.date}</p>
-                  </div>
-                  <Link href={item.link}>
-                    <Button
-                      variant="outline"
-                      className="font-semibold text-gray-700 text-xs ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
-                    >
-                      보기
-                    </Button>
+                  <Link href={item.link} className="flex items-center">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
+                      <span className="text-white font-bold text-sm">
+                        {item.icon}
+                      </span>
+                    </div>
+                    <div className="flex-grow">
+                      <h4 className="text-sm text-gray-700 font-semibold mb-2">
+                        {item.name}
+                      </h4>
+                      <p className="text-xs text-gray-600">{item.date}</p>
+                    </div>
                   </Link>
                 </Card>
               ))}
