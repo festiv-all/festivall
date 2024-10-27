@@ -25,6 +25,12 @@ const notoSansKr = Noto_Sans_KR({
   subsets: ["latin"],
 });
 
+const pretendard = localFont({
+  src: "./fonts/Pretendard.woff",
+  variable: "--font-pretendard",
+  weight: "100 900",
+});
+
 export const metadata: Metadata = {
   title: "Find your life in Festivall",
   description: "All exciting festivals you wanted",
@@ -41,7 +47,7 @@ export default async function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <body
-        className={`${notoSansKr.className} ${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${pretendard.variable} ${notoSansKr.className} ${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <ThemeProvider
           attribute="class"
