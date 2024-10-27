@@ -25,7 +25,7 @@ export default function OrderSummary() {
 
   useEffect(() => {
     const productIds = cart.map((a) => a.product_id);
-    let attendeesToRemove = [];
+    const attendeesToRemove = [];
     attendees.forEach((a) => {
       if (!productIds.includes(a.product_id)) {
         attendeesToRemove.push(a);
