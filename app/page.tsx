@@ -36,8 +36,8 @@ export default async function Home() {
 
   const genres = [
     { icon: <Music className="w-4 h-4" />, label: "댄스" },
-    { icon: <Theater className="w-4 h-4" />, label: "공연" },
-    { icon: <Trophy className="w-4 h-4" />, label: "스포츠" },
+    { icon: <Theater className="w-4 h-4" />, label: "음악" },
+    { icon: <Trophy className="w-4 h-4" />, label: "운동" },
     { icon: <Utensils className="w-4 h-4" />, label: "푸드" },
   ];
 
@@ -46,7 +46,7 @@ export default async function Home() {
       <main className="max-w-5xl mx-auto px-6 py-16 space-y-24">
         <section className="text-center">
           <div className="text-xl font-bold text-gray-800 mb-6">
-            내 주변 신나는 이벤트를 한번에
+            내 인생의 즐거움이 여기에
           </div>
           {/* <p className="text-2xl text-gray-600 mb-12">
             Find and book tickets for the hottest festivals and events!
