@@ -3,7 +3,7 @@ import Header from "@/components/header/Header";
 import { createClient } from "@/utils/supabase/server";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Noto_Sans_KR } from "next/font/google";
+// import { Noto_Sans_KR } from "next/font/google";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -20,10 +20,10 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-const notoSansKr = Noto_Sans_KR({
-  weight: ["500"],
-  subsets: ["latin"],
-});
+// const notoSansKr = Noto_Sans_KR({
+//   weight: ["500"],
+//   subsets: ["latin"],
+// });
 
 const pretendard = localFont({
   src: "./fonts/Pretendard.woff",
