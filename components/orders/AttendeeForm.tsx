@@ -13,7 +13,7 @@ import useAttendeeStore from "@/lib/store/attendee";
 import useCartStore from "@/lib/store/cart";
 import InitAttendees from "@/lib/store/initAttendees";
 import { useUser } from "@/lib/store/user";
-import { Mail, Phone, User } from "lucide-react";
+import { Mail, MapPin, Notebook, Phone, User } from "lucide-react";
 import { useState } from "react";
 
 export default function AttendeeForm() {
@@ -22,14 +22,18 @@ export default function AttendeeForm() {
   const user = useUser((state) => state.user);
   const attendees = useAttendeeStore((state) => state.attendees);
   const updateAttendee = useAttendeeStore((state) => state.updateAttendee);
-  const addAttendeeName = useAttendeeStore((state) => state.addAttendeeName);
-  const removeAttendeeName = useAttendeeStore(
-    (state) => state.removeAttendeeName
+  const copyAllAttendeeInfos = useAttendeeStore(
+    (state) => state.copyAllAttendeeInfos
   );
+  const removeAttendeeInfos = useAttendeeStore(
+    (state) => state.removeAttendeeInfos
+  );
+  // console.log("attendees", attendees);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (copyInfo && e.target.form?.className.split(" ")[1] === "form-1") {
-      addAttendeeName(e.target.value);
+      copyAllAttendeeInfos(e.target.form?.id || "");
+      updateAttendee(e.target.form?.id || "", e.target.id, e.target.value);
     } else {
       updateAttendee(e.target.form?.id || "", e.target.id, e.target.value);
     }
@@ -38,9 +42,9 @@ export default function AttendeeForm() {
   const handleCopyInfoChange = (checked: boolean) => {
     setCopyInfo(checked);
     if (checked) {
-      addAttendeeName(attendees[0].name);
+      copyAllAttendeeInfos(attendees[0].product_id);
     } else {
-      removeAttendeeName(attendees[0].product_id);
+      removeAttendeeInfos(attendees[0].product_id);
     }
   };
 
@@ -55,8 +59,9 @@ export default function AttendeeForm() {
           id={ticket.product_id}
           onSubmit={handleSubmit}
           className={`space-y-4 form-${index + 1}`}
+          key={ticket.product_id}
         >
-          <AccordionItem value={`item-${index}`} key={ticket.product_id}>
+          <AccordionItem value={`item-${index}`}>
             <AccordionTrigger className="text-pink-700 font-semibold">
               {ticket.product_title}
             </AccordionTrigger>
@@ -110,6 +115,42 @@ export default function AttendeeForm() {
                     />
                   </div>
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="city">City</Label>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="city"
+                      type="text"
+                      placeholder="Enter your city / community"
+                      value={
+                        attendees.find(
+                          (a) => a.product_id === ticket.product_id
+                        )?.city || ""
+                      }
+                      onChange={handleChange}
+                      className="pl-10"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="note">Note</Label>
+                  <div className="relative">
+                    <Notebook className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="note"
+                      type="text"
+                      placeholder=""
+                      value={
+                        attendees.find(
+                          (a) => a.product_id === ticket.product_id
+                        )?.note || ""
+                      }
+                      onChange={handleChange}
+                      className="pl-10"
+                    />
+                  </div>
+                </div>
                 {index === 0 && cart.length > 1 && (
                   <div className="flex items-center space-x-2 mt-6">
                     <Checkbox
@@ -128,7 +169,6 @@ export default function AttendeeForm() {
               </div>
             </AccordionContent>
           </AccordionItem>
-          <InitAttendees />
         </form>
       ))}
     </Accordion>

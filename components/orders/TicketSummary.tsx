@@ -26,7 +26,7 @@ export default function TicketSummary({ event_id }: { event_id: string }) {
   const attendees = useAttendeeStore((state) => state.attendees);
   const cleanAttendees = useAttendeeStore((state) => state.cleanAttendees);
   useEffect(() => {
-    if (event_id !== attendees[0]?.event_id) {
+    if (event_id && cart && event_id !== attendees[0]?.event_id) {
       cleanAttendees();
     }
 
@@ -34,7 +34,7 @@ export default function TicketSummary({ event_id }: { event_id: string }) {
       cleanCart();
     }
     // console.log("cart", cart);
-  }, [cart]);
+  }, [event_id, cart]);
 
   const goToOrder = () => {
     const order_at = Date.now();

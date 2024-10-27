@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { cartProduct } from "../types/cartProduct";
 import { persist } from "zustand/middleware";
 import { Attendee } from "../types/attendee";
 
@@ -13,8 +12,8 @@ interface Actions {
   updateAttendee: (product_id: string, field: string, value: string) => void;
   removeAttendee: (attendee: Attendee) => void;
   cleanAttendees: () => void;
-  addAttendeeName: (value: string) => void;
-  removeAttendeeName: (product_id: string) => void;
+  copyAllAttendeeInfos: (product_id: string) => void;
+  removeAttendeeInfos: (product_id: string) => void;
 }
 
 // Initialize a default state
@@ -55,15 +54,29 @@ export const useAttendeeStore = create(
           attendees: [],
         }));
       },
-      addAttendeeName: (value: string) => {
-        set((state) => ({
-          attendees: state.attendees.map((a) => ({ ...a, name: value })),
-        }));
-      },
-      removeAttendeeName: (product_id) => {
+      copyAllAttendeeInfos: (product_id) => {
+        const infosToCopy = get().attendees.filter(
+          (a) => a.product_id === product_id
+        )[0];
         set((state) => ({
           attendees: state.attendees.map((a) =>
-            a.product_id !== product_id ? { ...a, name: "" } : a
+            a.product_id !== product_id
+              ? {
+                  ...a,
+                  name: infosToCopy.name,
+                  city: infosToCopy.city,
+                  note: infosToCopy.note,
+                }
+              : a
+          ),
+        }));
+      },
+      removeAttendeeInfos: (product_id) => {
+        set((state) => ({
+          attendees: state.attendees.map((a) =>
+            a.product_id !== product_id
+              ? { ...a, name: "", city: "", note: "" }
+              : a
           ),
         }));
       },

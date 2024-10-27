@@ -4,4 +4,6 @@ export type Attendee = {
   name: string;
   email: string;
   phone: string;
+  city: string;
+  note: string;
 };

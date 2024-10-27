@@ -27,9 +27,9 @@ export default function OrderPage() {
     !searchParams.get("order_at");
 
   useEffect(() => {
-    if (noOrder) {
+    if (cart && noOrder) {
       cleanAttendees();
-      toast.error("Wrong Access");
+      toast.error("Wrong Access. No items in cart.");
       router.push("/");
     }
   }, [searchParams, cart]);

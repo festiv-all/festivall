@@ -20,13 +20,11 @@ import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function OrderSummary() {
-  const router = useRouter();
   const cart = useCartStore((state) => state.cart);
   const event_title = useCartStore((state) => state.event_title);
   const totalPrice = useCartStore((state) => state.totalPrice);
   const attendees = useAttendeeStore((state) => state.attendees);
   const removeAttendee = useAttendeeStore((state) => state.removeAttendee);
-  const cleanAttendees = useAttendeeStore((state) => state.cleanAttendees);
 
   useEffect(() => {
     const productIds = cart.map((a) => a.product_id);
@@ -37,31 +35,26 @@ export default function OrderSummary() {
         removeAttendee(a);
       }
     });
-    if (cart.length === 0) {
-      cleanAttendees();
-      toast.error("Wrong Access");
-      router.push("/");
-    }
-  }, []);
+  }, [cart]);
 
-  const requestPayment = async () => {
-    const response = await PortOne.requestPayment({
-      // Store ID 설정
-      storeId: "store-4fbfda2d-0bd5-4c21-8885-5efc9d4387f2",
-      // 채널 키 설정
-      channelKey: "channel-key-7120fdf8-b197-4cdd-993b-7cc81cfcccb8",
-      paymentId: crypto.randomUUID(),
-      orderName: `[${event_title.slice(0, 10)}${
-        event_title.length > 10 ? ".." : ""
-      }] ${cart[0].product_title} and ${
-        cart.length > 1 ? cart.length - 1 + " more" : ""
-      }`,
-      totalAmount: totalPrice,
-      currency: "CURRENCY_KRW",
-      payMethod: "CARD",
-    });
-    console.log("response", response);
-  };
+  // const requestPayment = async () => {
+  //   const response = await PortOne.requestPayment({
+  //     // Store ID 설정
+  //     storeId: "store-4fbfda2d-0bd5-4c21-8885-5efc9d4387f2",
+  //     // 채널 키 설정
+  //     channelKey: "channel-key-7120fdf8-b197-4cdd-993b-7cc81cfcccb8",
+  //     paymentId: crypto.randomUUID(),
+  //     orderName: `[${event_title.slice(0, 10)}${
+  //       event_title.length > 10 ? ".." : ""
+  //     }] ${cart[0].product_title} and ${
+  //       cart.length > 1 ? cart.length - 1 + " more" : ""
+  //     }`,
+  //     totalAmount: totalPrice,
+  //     currency: "CURRENCY_KRW",
+  //     payMethod: "CARD",
+  //   });
+  //   console.log("response", response);
+  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

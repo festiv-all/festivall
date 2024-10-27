@@ -18,6 +18,8 @@ export default function InitAttendees() {
           name: "",
           email: user?.email ?? "",
           phone: user?.phone ?? "",
+          city: "",
+          note: "",
         })),
       });
     }
