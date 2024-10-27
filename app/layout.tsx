@@ -47,7 +47,7 @@ export default async function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <body
-        className={`${pretendard.variable} ${notoSansKr.className} ${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${pretendard.variable} ${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <ThemeProvider
           attribute="class"
