@@ -112,9 +112,9 @@ export default async function Home() {
         </section> */}
 
         <section>
-          <h3 className="text-base font-bold text-gray-800 mb-4">
+          {/* <h3 className="text-base font-bold text-gray-800 mb-4">
             예정 이벤트
-          </h3>
+          </h3> */}
           <Tabs defaultValue="all" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-8 bg-white bg-opacity-70 backdrop-blur-sm rounded-full p-2">
               <TabsTrigger value="all" className="rounded-full">
