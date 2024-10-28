@@ -27,7 +27,7 @@ export default async function Home() {
     {
       id: 3,
       icon: "new",
-      name: "Lindy Hop Basic (Youngbo & Laura)",
+      name: "Lindy Hop Basic",
       date: "2024년 11월 4-18일",
       image: "/placeholder.svg?height=400&width=600",
       link: "/event/a4afc104-a6d8-4643-8bf3-488a17913ece",
