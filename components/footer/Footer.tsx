@@ -28,7 +28,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3">
-            <div className="col-span-1 md:col-span-2 mt-8 text-gray-500 text-xs flex flex-wrap place-content-stretch gap-x-4 gap-y-2 font-light">
+            <div className="col-span-1 md:col-span-2 mt-8 text-gray-500 text-xs flex flex-wrap place-content-stretch gap-x-4 gap-y-2 font-normal">
               <p>페스티볼</p>
               <p>대표 심영보</p>
               <p>서울특별시 마포구 와우산로 105, 5층-J20호(서교동)</p>
