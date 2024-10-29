@@ -46,9 +46,7 @@ export default async function RootLayout({
 
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body
-        className={`${pretendard.variable} ${geistSans.variable} ${geistMono.variable} antialiased `}
-      >
+      <body className={`${pretendard.variable} antialiased `}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
