@@ -17,6 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import useAttendeeStore from "@/lib/store/attendee";
 import useCartStore from "@/lib/store/cart";
+import { getCurrencyInWon } from "@/utils/utils";
 import { Check } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -25,26 +26,25 @@ import { useEffect } from "react";
 const orderConfirmation = {
   orderNumber: "ORD-12345",
   event: {
-    name: "Summer Music Festival",
-    date: "August 15-17, 2024",
-    location: "Sunshine Park, California",
+    name: "Swingin' On the Campus 발보아 트레이닝",
+    date: "2024년 10월 16일 - 11월 20일",
     imageUrl: "/placeholder.svg?height=100&width=200",
   },
   items: [
     {
-      name: "VIP Pass",
+      name: "Lead",
       quantity: 1,
-      price: 150,
+      price: 140000,
       attendee: { name: "John Doe", email: "john@example.com" },
     },
     {
-      name: "General Admission",
+      name: "Follow",
       quantity: 1,
-      price: 75,
+      price: 140000,
       attendee: { name: "Jane Smith", email: "jane@example.com" },
     },
   ],
-  total: 225,
+  total: 280000,
 };
 
 export default function OrderConfirmation() {
@@ -60,8 +60,8 @@ export default function OrderConfirmation() {
     <div className="container mx-auto px-4 py-8">
       <Card className="max-w-lg mx-auto">
         <CardHeader className="text-center">
-          <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-4">
-            <Check className="h-6 w-6 text-pink-600" />
+          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+            <Check className="h-6 w-6 text-gray-600" />
           </div>
           <CardTitle className="text-2xl font-bold">Order Confirmed</CardTitle>
         </CardHeader>
@@ -101,7 +101,7 @@ export default function OrderConfirmation() {
                       <span>
                         {item.name} x {item.quantity}
                       </span>
-                      <span>${item.price.toFixed(2)}</span>
+                      <span>{getCurrencyInWon(item.price)}</span>
                     </div>
                     <div className="pl-4 text-sm text-gray-600">
                       <p>Attendee: {item.attendee.name}</p>
@@ -114,7 +114,7 @@ export default function OrderConfirmation() {
                 ))}
                 <div className="flex justify-between py-2 font-bold">
                   <span>Total</span>
-                  <span>${orderConfirmation.total.toFixed(2)}</span>
+                  <span>{getCurrencyInWon(orderConfirmation.total)}</span>
                 </div>
               </AccordionContent>
             </AccordionItem>
