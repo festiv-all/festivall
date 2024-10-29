@@ -8,9 +8,10 @@ export default function InitAttendees() {
   const initState = useRef(false);
   const user = useUser((state) => state.user);
   const cart = useCartStore((state) => state.cart);
+  const attendees = useAttendeeStore((state) => state.attendees);
 
   useEffect(() => {
-    if (!initState.current) {
+    if (!initState.current && attendees.length === 0) {
       useAttendeeStore.setState({
         attendees: cart.map((a) => ({
           product_id: a.product_id,
@@ -24,7 +25,7 @@ export default function InitAttendees() {
       });
     }
     initState.current = true;
-  }, []);
+  }, [attendees]);
 
   return <></>;
 }
