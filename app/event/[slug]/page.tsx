@@ -65,7 +65,7 @@ export default async function EventDetailPage({
               </div>
               <div className="space-y-2 md:space-x-4 md:text-right text-sm md:text-md">
                 <div>
-                  <a target="_blank" href="https://camp.swingit.kr/">
+                  <a target="_blank" href="#">
                     <Button className="w-full md:w-auto" variant="outline">
                       <Globe className="w-4 h-4 mr-2" />
                       홈페이지 바로가기
