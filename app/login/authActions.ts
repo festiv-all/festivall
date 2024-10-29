@@ -51,7 +51,7 @@ export async function signup(formData: FormData) {
 
   try {
     const result = await supabase.auth.signUp(data);
-    console.log("signup actionresult", result);
+    // console.log("signup actionresult", result);
     return { result: result };
     // redirect("/");
   } catch (error) {
