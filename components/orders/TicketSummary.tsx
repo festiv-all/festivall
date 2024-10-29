@@ -84,7 +84,7 @@ export default function TicketSummary({ event_id }: { event_id: string }) {
         </div>
 
         <Button
-          className="w-full mt-5 text-xs lg:text-sm bg-pink-700"
+          className="w-full mt-5 text-xs lg:text-sm bg-pink-700 hover:bg-pink-500"
           onClick={goToOrder}
         >
           <ShoppingCart className="mr-2 h-3 w-3 lg:h-4 lg:w-4" />
