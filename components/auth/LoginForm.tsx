@@ -50,7 +50,7 @@ export default function LoginForm({ user }: { user: User | undefined }) {
       formData.append(key, value.toString());
     });
     const { result } = await login(formData);
-    console.log("loginresult", result);
+    // console.log("loginresult", result);
     if (result?.data?.user?.id) {
       toast.success("Login successful");
       router.push("/");
