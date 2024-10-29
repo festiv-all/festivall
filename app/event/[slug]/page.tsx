@@ -73,8 +73,8 @@ export default async function EventDetailPage({
                   </a>
                 </div>
                 <div>
-                  <Link href={`/buy-tickets/${event.id}`}>
-                    <Button className="w-full md:w-auto">
+                  <Link href={`buy-tickets/${event.id}`}>
+                    <Button className="w-full md:w-auto bg-pink-700 text-white hover:bg-pink-500">
                       <Ticket className="w-4 h-4 mr-2" />
                       티켓 구매하기
                     </Button>
