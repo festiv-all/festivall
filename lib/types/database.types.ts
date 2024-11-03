@@ -110,7 +110,7 @@ export type Database = {
             foreignKeyName: "events_organizer_id_fkey"
             columns: ["organizer_id"]
             isOneToOne: false
-            referencedRelation: "organizers"
+            referencedRelation: "organizer_info"
             referencedColumns: ["id"]
           },
         ]
@@ -119,24 +119,27 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          orderId: string | null
           payment_id: string | null
-          status: string | null
+          status: Database["public"]["Enums"]["order_status"] | null
           total: number | null
           user_id: string | null
         }
         Insert: {
           created_at?: string
-          id?: string
+          id: string
+          orderId?: string | null
           payment_id?: string | null
-          status?: string | null
+          status?: Database["public"]["Enums"]["order_status"] | null
           total?: number | null
           user_id?: string | null
         }
         Update: {
           created_at?: string
           id?: string
+          orderId?: string | null
           payment_id?: string | null
-          status?: string | null
+          status?: Database["public"]["Enums"]["order_status"] | null
           total?: number | null
           user_id?: string | null
         }
@@ -161,7 +164,6 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          order_id: string | null
           product_id: string | null
           quantity: number | null
           user_id: string | null
@@ -169,7 +171,6 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
-          order_id?: string | null
           product_id?: string | null
           quantity?: number | null
           user_id?: string | null
@@ -177,19 +178,11 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
-          order_id?: string | null
           product_id?: string | null
           quantity?: number | null
           user_id?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "order_items_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "order_details"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "order_items_product_id_fkey"
             columns: ["product_id"]
@@ -206,7 +199,7 @@ export type Database = {
           },
         ]
       }
-      organizers: {
+      organizer_info: {
         Row: {
           address: string | null
           avatar_url: string | null
@@ -218,6 +211,7 @@ export type Database = {
           phone: string | null
           provider: string | null
           rep_name: string
+          user_id: string | null
         }
         Insert: {
           address?: string | null
@@ -230,6 +224,7 @@ export type Database = {
           phone?: string | null
           provider?: string | null
           rep_name: string
+          user_id?: string | null
         }
         Update: {
           address?: string | null
@@ -242,6 +237,7 @@ export type Database = {
           phone?: string | null
           provider?: string | null
           rep_name?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -404,7 +400,9 @@ export type Database = {
       ticket_details: {
         Row: {
           attendee_email: string | null
+          attendee_en_name: string | null
           attendee_name: string | null
+          attendee_nickname: string | null
           attendee_phone: string | null
           created_at: string
           event_id: string | null
@@ -414,7 +412,9 @@ export type Database = {
         }
         Insert: {
           attendee_email?: string | null
+          attendee_en_name?: string | null
           attendee_name?: string | null
+          attendee_nickname?: string | null
           attendee_phone?: string | null
           created_at?: string
           event_id?: string | null
@@ -424,7 +424,9 @@ export type Database = {
         }
         Update: {
           attendee_email?: string | null
+          attendee_en_name?: string | null
           attendee_name?: string | null
+          attendee_nickname?: string | null
           attendee_phone?: string | null
           created_at?: string
           event_id?: string | null
@@ -506,7 +508,12 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      order_status:
+        | "completed"
+        | "onprocess"
+        | "failed"
+        | "canceled"
+        | "refunded"
     }
     CompositeTypes: {
       [_ in never]: never

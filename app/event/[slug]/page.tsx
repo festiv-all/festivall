@@ -21,12 +21,14 @@ export default async function EventDetailPage({
   params: { slug: string };
 }) {
   const supabase = createClient();
+  console.log("params", params.slug);
   // const event_title = params.slug.replaceAll("-", " ");
   const { data: event } = await supabase
     .from("events")
-    .select("*,organizers(*)")
+    .select("*, organizer_info(*)")
     .eq("id", params.slug)
     .single();
+  console.log("event", event);
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-8 md:pt-12 md:pb-36">
@@ -106,7 +108,7 @@ export default async function EventDetailPage({
                         사업자명
                       </td>
                       <td className="text-gray-700 border-t border-b p-2">
-                        {event.organizers?.corp_name}
+                        {event.organizer_info?.corp_name}
                       </td>
                     </tr>
                     <tr>
@@ -114,7 +116,7 @@ export default async function EventDetailPage({
                         사업자 등록번호
                       </td>
                       <td className="text-gray-700 border-b p-2">
-                        {event.organizers?.corp_number
+                        {event.organizer_info?.corp_number
                           ?.toString()
                           .replace(/(\d{3})(\d{2})(\d{5})/, "$1-$2-$3")}
                       </td>
