@@ -62,7 +62,7 @@ export default async function EventDetailPage({
                 </div>
                 <div className="flex items-center text-sm md:text-md">
                   <User className="w-5 h-5 mr-2 text-gray-500" />
-                  <span>{event.organizers?.corp_name}</span>
+                  <span>{event.organizer_info?.corp_name}</span>
                 </div>
               </div>
               <div className="space-y-2 md:space-x-4 md:text-right text-sm md:text-md">
