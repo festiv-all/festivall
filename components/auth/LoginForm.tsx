@@ -3,41 +3,51 @@
 import { login } from "@/app/login/authActions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { LoginFormData, loginSchema } from "@/lib/schema/userSchema";
+import { supabaseBrowser } from "@/utils/supabase/client";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Lock, Mail } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import toast from "react-hot-toast";
-import { Label } from "../ui/label";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginFormData, loginSchema } from "@/lib/schema/userSchema";
-import { useEffect } from "react";
-import { User } from "@supabase/supabase-js";
+import toast from "react-hot-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
+import { Label } from "../ui/label";
 
-export default function LoginForm({ user }: { user: User | undefined }) {
+export default function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const verified = params.get("verified");
-  const code = params.get("code");
+  const confirmed = params.get("confirmed");
   const error = params.get("error");
-
-  if (user) {
-    router.push("/");
-  }
-
+  const [isEmailOpen, setIsEmailOpen] = useState(false);
+  const [buttonState, setButtonState] = useState(false);
+  console.log("confirmed", confirmed);
   useEffect(() => {
-    if (verified === "true" && code && !error) {
-      // Use a state variable to trigger a custom message display
+    if (confirmed === "success") {
       const timer = setTimeout(() => {
         toast.success("Email verified successfully.\nYou can now log in.");
-      }, 100);
+      }, 500);
+
+      return () => clearTimeout(timer);
+    } else if (confirmed === "invalid") {
+      const timer = setTimeout(() => {
+        toast.error("The link is invalid or expired.");
+      }, 500);
 
       return () => clearTimeout(timer);
     }
-  }, [verified, code, error]);
+  }, [confirmed, error]);
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isValid, isSubmitting, errors },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
@@ -50,15 +60,30 @@ export default function LoginForm({ user }: { user: User | undefined }) {
       formData.append(key, value.toString());
     });
     const { result } = await login(formData);
-    // console.log("loginresult", result);
+    console.log("LoginForm - result", result);
     if (result?.data?.user?.id) {
       toast.success("Login successful");
       router.push("/");
-    } else if (result?.error) {
-      toast.error("Login failed");
+    } else if (result?.error === "email_not_confirmed") {
+      setIsEmailOpen(true);
+      setButtonState(false);
     } else {
-      toast.error("Login failed");
+      toast.error("Login failed. Please check your email and password.");
     }
+  };
+
+  const handleResendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const supabase = supabaseBrowser();
+    const { data, error } = await supabase.auth.resend({
+      type: "signup",
+      email: watch("email"),
+      options: {
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/login/email?email_verified=true`,
+      },
+    });
+    setIsEmailOpen(false);
+    toast.success("Confirmation email sent. Check your email please.");
   };
 
   return (
@@ -105,13 +130,36 @@ export default function LoginForm({ user }: { user: User | undefined }) {
       >
         Log in
       </Button>
-      {/* <Button
+      <Dialog open={isEmailOpen} onOpenChange={setIsEmailOpen}>
+        <DialogContent className="rounded-md w-[95vw] md:max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="text-base">Email not confirmed</DialogTitle>
+            <DialogDescription>
+              Do you want to resend the confirmation email?
+            </DialogDescription>
+          </DialogHeader>
+          <form
+            onSubmit={(e) => {
+              setButtonState(true);
+              handleResendEmail(e);
+            }}
+          >
+            <Input
+              name="email"
+              type="email"
+              defaultValue={watch("email")}
+              disabled
+            />
+            <Button
               type="submit"
-              formAction={signup}
-              className="w-full mt-6 bg-pink-700"
+              className="w-full mt-2 bg-gray-800 disabled:bg-gray-400"
+              disabled={buttonState}
             >
-              Sign up
-            </Button> */}
+              Send
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </form>
   );
 }

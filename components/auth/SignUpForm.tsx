@@ -42,10 +42,10 @@ const SignUpForm: React.FC = () => {
 
   React.useEffect(() => {
     if (process.env.NODE_ENV === "development") {
-      // setValue("email", "bibleshim@gmail.com", { shouldValidate: false });
-      // setValue("name", "test", { shouldValidate: false });
-      // setValue("password", "testT11!!!!!", { shouldValidate: false });
-      // setValue("confirmPassword", "testT11!!!!!", { shouldValidate: false });
+      setValue("email", "bibleshim@gmail.com", { shouldValidate: false });
+      setValue("name", "test", { shouldValidate: false });
+      setValue("password", "Test11!!", { shouldValidate: false });
+      setValue("confirmPassword", "Test11!!", { shouldValidate: false });
       setValue("isOver14", false, { shouldValidate: false });
       setValue("termsAgreement", false, { shouldValidate: false });
     } else {
@@ -125,6 +125,10 @@ const SignUpForm: React.FC = () => {
                 {...register("password")}
                 className="pl-10"
               />
+              <p className="text-xs text-gray-500 p-1">
+                Lower/upper case, number and special character should be
+                included in 8-30 characters
+              </p>
               {errors.password && (
                 <span className="text-red-500 text-xs">
                   {errors.password.message}

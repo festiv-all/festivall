@@ -1,17 +1,43 @@
 "use client";
 
+import { useUser } from "@/lib/store/user";
 import { supabaseBrowser } from "@/utils/supabase/client";
-import { Button } from "../ui/button";
-import Link from "next/link";
 import { Mail } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 export default function OauthForm() {
   const supabase = supabaseBrowser();
+  const router = useRouter();
+  const user = useUser();
+  const [isOauthPopupOpen, setIsOauthPopupOpen] = useState(false);
+
+  // useEffect(() => {
+  //   if (user.user) {
+  //     router.push("/");
+  //   }
+  // }, [user.user]);
+
   const handleLoginWithGoogle = () => {
     supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: location.origin + "/auth/callback",
+        redirectTo: location.origin + "/auth/confirm",
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
+    });
+  };
+
+  const handleLoginWithFacebook = () => {
+    supabase.auth.signInWithOAuth({
+      provider: "facebook",
+      options: {
+        redirectTo: "/auth/confirm",
       },
     });
   };
@@ -20,7 +46,7 @@ export default function OauthForm() {
     supabase.auth.signInWithOAuth({
       provider: "kakao",
       options: {
-        redirectTo: location.origin + "/auth/callback",
+        redirectTo: "/auth/confirm",
       },
     });
   };
@@ -51,7 +77,7 @@ export default function OauthForm() {
       </Button>
       <Button
         variant="outline"
-        // onClick={}
+        onClick={handleLoginWithFacebook}
         className="w-full h-12"
       >
         {/* <Icons.facebook className="mr-2 h-4 w-4" /> */}
