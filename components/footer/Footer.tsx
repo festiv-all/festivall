@@ -15,12 +15,12 @@ export default function Footer() {
                   </a>
                 </div>
                 <div className="text-gray-600 hover:text-purple-600 text-sm">
-                  <a href="docs/terms" className="">
+                  <a href="/docs/terms" className="">
                     이용약관
                   </a>
                 </div>
                 <div className="text-gray-600 hover:text-purple-600 text-sm">
-                  <a href="docs/privacy" className="">
+                  <a href="/docs/privacy" className="">
                     개인정보 처리방침
                   </a>
                 </div>

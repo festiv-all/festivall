@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 body {
-  font-family: "Pretendard", "Geist", Arial, Helvetica, sans-serif;
+  font-family: "Pretendard", var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.header-logo {
+  font-family: var(--font-geist-sans);
 }
 
 @layer utilities {
