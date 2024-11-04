@@ -15,7 +15,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
           supabaseResponse = NextResponse.next({
@@ -37,10 +37,28 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  if (
+    user &&
+    !request.nextUrl.pathname.startsWith("/signup/social") &&
+    !request.nextUrl.pathname.startsWith("/auth/confirm") &&
+    user?.app_metadata.provider !== "email" &&
+    !user?.user_metadata.social_signup_confirmed
+  ) {
+    return NextResponse.redirect(
+      new URL(
+        `/signup/social?email=${user?.email}&provider=${user?.app_metadata.provider}`,
+        request.url
+      )
+    );
+  }
+
   // if (
   //   !user &&
   //   !request.nextUrl.pathname.startsWith("/login") &&
-  //   !request.nextUrl.pathname.startsWith("/auth")
+  //   !request.nextUrl.pathname.startsWith("/auth") &&
+  //   !request.nextUrl.pathname.startsWith("/forgot-password") &&
+  //   !request.nextUrl.pathname.startsWith("/reset-password") &&
+  //   !request.nextUrl.pathname.startsWith("/signup")
   // ) {
   //   // no user, potentially respond by redirecting the user to the login page
   //   const url = request.nextUrl.clone();
