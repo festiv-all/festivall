@@ -7,3 +7,5 @@ export type Product = Tables<"products"> & {
 };
 
 export type Category = Tables<"categories">;
+
+export type UserData = Tables<"users">;
