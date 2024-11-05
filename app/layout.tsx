@@ -2,7 +2,6 @@ import Footer from "@/components/footer/Footer";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 // import { Noto_Sans_KR } from "next/font/google";
-import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -35,38 +34,36 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactQueryClientProvider>
-      <html lang="ko" suppressHydrationWarning>
-        <body
-          className={`${pretendard.variable} ${geistSans.variable} antialiased`}
+    <html lang="ko" suppressHydrationWarning>
+      <body
+        className={`${pretendard.variable} ${geistSans.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster
-              position="top-center"
-              toastOptions={{
-                className: "min-w-[280px]",
-                duration: 4000,
-                style: {
-                  fontSize: "0.85rem",
-                },
-              }}
-              containerStyle={{
-                top: 70,
-                left: 50,
-                bottom: 50,
-                right: 50,
-              }}
-            />
-            <Footer />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ReactQueryClientProvider>
+          {children}
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              className: "min-w-[280px]",
+              duration: 4000,
+              style: {
+                fontSize: "0.85rem",
+              },
+            }}
+            containerStyle={{
+              top: 70,
+              left: 50,
+              bottom: 50,
+              right: 50,
+            }}
+          />
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
