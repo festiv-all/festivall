@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-
+import { Suspense } from "react";
 export default async function SocialSignUpPage() {
   return (
     <div className="container mx-auto max-w-5xl">
@@ -15,7 +15,15 @@ export default async function SocialSignUpPage() {
           <CardTitle className="text-base font-bold">Sign Up</CardTitle>
         </CardHeader>
         <CardContent>
-          <SocialSignUpForm />
+          <Suspense
+            fallback={
+              <div className="space-y-4">
+                <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+              </div>
+            }
+          >
+            <SocialSignUpForm />
+          </Suspense>
         </CardContent>
         <CardFooter>
           <p className="text-xs text-center w-full">
