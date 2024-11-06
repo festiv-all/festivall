@@ -152,7 +152,8 @@ export default function OrderSummary({
   const handleSubmit = (e: React.FormEvent) => {
     setLoading(true);
     e.preventDefault();
-    requestPayment();
+    toast.success("Payment function is being developed.");
+    // requestPayment();
     setLoading(false);
     // router.push("/order-payment");
   };
