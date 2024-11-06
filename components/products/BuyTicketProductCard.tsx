@@ -1,7 +1,7 @@
 "use client";
 
 import useCartStore from "@/lib/store/cart";
-import { Product } from "@/lib/types/product";
+import { Product } from "@/lib/types";
 import { getCurrencyInWon } from "@/utils/utils";
 import { X } from "lucide-react";
 import { Button } from "../ui/button";

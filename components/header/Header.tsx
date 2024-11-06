@@ -4,7 +4,7 @@ import HeaderUser from "./HeaderUser";
 import { redirect } from "next/navigation";
 
 export default async function Header() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
   const user = data?.user;
   if (user && !user?.user_metadata.social_signup_confirmed) {
