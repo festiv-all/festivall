@@ -1,23 +1,16 @@
 "use client";
 
-import { updatePassword } from "@/app/login/authActions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   UpdatePasswordFormData,
   updatePasswordSchema,
 } from "@/lib/schema/userSchema";
+import { supabaseBrowser } from "@/utils/supabase/client";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { User } from "@supabase/supabase-js";
-import { Mail } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { CardHeader, CardTitle } from "../ui/card";
-import { CardContent } from "../ui/card";
 import { Label } from "../ui/label";
-import { supabaseBrowser } from "@/utils/supabase/client";
 
 export default function UpdatePasswordForm({
   setIsPasswordOpen,

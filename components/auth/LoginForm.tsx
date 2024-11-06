@@ -75,15 +75,19 @@ export default function LoginForm() {
   const handleResendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const supabase = supabaseBrowser();
-    const { data, error } = await supabase.auth.resend({
+    const { error } = await supabase.auth.resend({
       type: "signup",
       email: watch("email"),
       options: {
         emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/login/email?email_verified=true`,
       },
     });
-    setIsEmailOpen(false);
-    toast.success("Confirmation email sent. Check your email please.");
+    if (!error) {
+      setIsEmailOpen(false);
+      toast.success("Confirmation email sent. Check your email please.");
+    } else {
+      toast.error("Failed to send confirmation email. Please try again.");
+    }
   };
 
   return (

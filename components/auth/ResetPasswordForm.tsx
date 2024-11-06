@@ -38,7 +38,7 @@ export default function ResetPasswordForm() {
   });
 
   const onSubmit = async (formData: ResetPasswordFormData) => {
-    const { result, error } = await updatePassword(formData?.password || "");
+    const { error } = await updatePassword(formData?.password || "");
     if (error) {
       toast.error("Failed to update password");
     } else {

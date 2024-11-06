@@ -29,14 +29,14 @@ export default function ResendConfirmMailForm({
   const {
     register,
     handleSubmit,
-    formState: { isValid, isSubmitting, isSubmitted },
+    formState: { isSubmitting, isSubmitted },
   } = useForm<ResendEmailFormData>({
     resolver: yupResolver(resendEmailFormSchema),
     mode: "onChange",
     defaultValues: { email },
   });
 
-  const resendEmail = async (data: ResendEmailFormData) => {
+  const resendEmail = async () => {
     const supabase = supabaseBrowser();
     const { data: result, error } = await supabase.auth.resend({
       type: "signup",

@@ -1,10 +1,6 @@
 import OauthSignup from "@/components/auth/OauthSignup";
-import OauthForm from "@/components/auth/OauthSignup";
-import SignUpForm from "@/components/auth/SignUpForm";
 import Header from "@/components/header/Header";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useUser } from "@/lib/store/user";
-import { redirect } from "next/navigation";
 
 export default async function LoginPage() {
   return (

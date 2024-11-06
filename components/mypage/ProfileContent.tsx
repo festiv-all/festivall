@@ -211,7 +211,7 @@ export default function ProfileContent({ user }: { user: User | undefined }) {
                           Verify Phone Number
                         </DialogTitle>
                         <DialogDescription>
-                          We'll send you a verification code via SMS
+                          We&apos;ll send you a verification code via SMS
                         </DialogDescription>
                       </DialogHeader>
                       <UpdatePhoneForm

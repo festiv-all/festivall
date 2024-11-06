@@ -8,10 +8,7 @@ import {
   forgotPasswordSchema,
 } from "@/lib/schema/userSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { User } from "@supabase/supabase-js";
 import { Mail } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 

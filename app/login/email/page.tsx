@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 
 export default async function EmailLoginPage() {

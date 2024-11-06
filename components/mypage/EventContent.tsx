@@ -1,6 +1,5 @@
-import { CardContent } from "../ui/card";
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { CardContent } from "../ui/card";
 
 // Mock data
 const mockUserData = {

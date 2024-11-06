@@ -1,18 +1,12 @@
 "use client";
 
-import { useUser } from "@/lib/store/user";
 import { supabaseBrowser } from "@/utils/supabase/client";
 import { Mail } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Button } from "../ui/button";
 
 export default function OauthForm() {
   const supabase = supabaseBrowser();
-  const router = useRouter();
-  const user = useUser();
-  const [isOauthPopupOpen, setIsOauthPopupOpen] = useState(false);
 
   // useEffect(() => {
   //   if (user.user) {
