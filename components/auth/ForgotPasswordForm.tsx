@@ -1,6 +1,6 @@
 "use client";
 
-import { forgotPassword } from "@/app/login/authActions";
+import { forgotPassword } from "@/app/(auth)/login/authActions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {

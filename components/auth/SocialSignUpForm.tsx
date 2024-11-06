@@ -2,7 +2,7 @@
 
 import { privacy } from "@/app/docs/privacy/privacy";
 import { terms } from "@/app/docs/terms/terms";
-import { socialSignUp } from "@/app/login/authActions";
+import { socialSignUp } from "@/app/(auth)/login/authActions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
