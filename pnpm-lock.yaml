@@ -172,7 +172,7 @@ importers:
         specifier: ^8
         version: 8.4.47
       supabase:
-        specifier: ^1.204.3
+        specifier: ^1.215.0
         version: 1.215.0
       tailwindcss:
         specifier: ^3.4.1
