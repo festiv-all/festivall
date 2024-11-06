@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 
 export async function login(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
@@ -38,7 +38,7 @@ export async function login(formData: FormData) {
 }
 
 export async function signup(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const origin = headers().get("origin");
   // type-casting here for convenience
   // in practice, you should validate your inputs
@@ -70,7 +70,7 @@ export async function signup(formData: FormData) {
 }
 
 export async function forgotPassword({ email }: { email: string }) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   try {
     const result = await supabase.auth.resetPasswordForEmail(email, {
@@ -83,7 +83,7 @@ export async function forgotPassword({ email }: { email: string }) {
 }
 
 export async function updatePassword(password: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   try {
     const result = await supabase.auth.updateUser({ password: password });
@@ -95,7 +95,7 @@ export async function updatePassword(password: string) {
 }
 
 export async function updateUserName(email: string, name: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   try {
     const result = await supabase
@@ -109,7 +109,7 @@ export async function updateUserName(email: string, name: string) {
 }
 
 export const socialSignUp = async (formData: FormData) => {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   try {
     const result = await supabase.auth.updateUser({

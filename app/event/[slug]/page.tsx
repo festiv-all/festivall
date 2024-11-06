@@ -21,7 +21,7 @@ export default async function EventDetailPage({
 }: {
   params: { slug: string };
 }) {
-  const supabase = createClient();
+  const supabase = await createClient();
   // console.log("params", params.slug);
   // const event_title = params.slug.replaceAll("-", " ");
   const { data: event } = await supabase
