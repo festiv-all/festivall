@@ -122,32 +122,32 @@ export default function OrderSummary({
   //   }
   // };
 
-  const requestPayment = async () => {
-    const response = await PortOne.requestPayment({
-      // Store ID 설정
-      storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID!,
-      // 채널 키 설정
-      channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY!,
-      paymentId,
-      orderName: `[${event_title.slice(0, 14)}${
-        event_title.length > 14 ? ".." : ""
-      }] ${cart[0].product_title} & ${
-        cart.length > 1 ? cart.length - 1 + " more" : ""
-      }`,
-      totalAmount: totalPrice,
-      currency: "CURRENCY_KRW",
-      payMethod: "CARD",
-      redirectUrl: `http://localhost:3000/order/result/${orderId}`,
-    });
+  // const requestPayment = async () => {
+  //   const response = await PortOne.requestPayment({
+  //     // Store ID 설정
+  //     storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID!,
+  //     // 채널 키 설정
+  //     channelKey: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY!,
+  //     paymentId,
+  //     orderName: `[${event_title.slice(0, 14)}${
+  //       event_title.length > 14 ? ".." : ""
+  //     }] ${cart[0].product_title} & ${
+  //       cart.length > 1 ? cart.length - 1 + " more" : ""
+  //     }`,
+  //     totalAmount: totalPrice,
+  //     currency: "CURRENCY_KRW",
+  //     payMethod: "CARD",
+  //     redirectUrl: `http://localhost:3000/order/result/${orderId}`,
+  //   });
 
-    if (response?.code != null) {
-      // 오류 발생
-      return toast.error("Payment request failed. Please try again.");
-    } else {
-      router.replace(`/order/result/${orderId}`);
-    }
-    // console.log("response", response);
-  };
+  //   if (response?.code != null) {
+  //     // 오류 발생
+  //     return toast.error("Payment request failed. Please try again.");
+  //   } else {
+  //     router.replace(`/order/result/${orderId}`);
+  //   }
+  //   // console.log("response", response);
+  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     setLoading(true);
