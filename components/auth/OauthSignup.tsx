@@ -27,15 +27,6 @@ export default function OauthForm() {
     });
   };
 
-  const handleLoginWithFacebook = () => {
-    supabase.auth.signInWithOAuth({
-      provider: "facebook",
-      options: {
-        redirectTo: "/auth/confirm",
-      },
-    });
-  };
-
   const handleLoginWithKakao = () => {
     supabase.auth.signInWithOAuth({
       provider: "kakao",
@@ -68,14 +59,6 @@ export default function OauthForm() {
       >
         {/* <Icons.kakao className="mr-2 h-4 w-4" /> */}
         카카오 계정으로 계속하기
-      </Button>
-      <Button
-        variant="outline"
-        onClick={handleLoginWithFacebook}
-        className="w-full h-12"
-      >
-        {/* <Icons.facebook className="mr-2 h-4 w-4" /> */}
-        페이스북 계정으로 계속하기
       </Button>
     </div>
   );

@@ -12,25 +12,25 @@ import { Separator } from "@/components/ui/separator";
 import { useAttendeeStore } from "@/lib/store/attendee";
 import useCartStore from "@/lib/store/cart";
 import { getCurrencyInWon } from "@/utils/utils";
-import * as PortOne from "@portone/browser-sdk/v2";
-import { v4 as uuidv4 } from "uuid";
+// import * as PortOne from "@portone/browser-sdk/v2";
+// import { v4 as uuidv4 } from "uuid";
 import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 export default function OrderSummary({
   setLoading,
 }: {
   setLoading: (loading: boolean) => void;
 }) {
-  const router = useRouter();
+  // const router = useRouter();
   const cart = useCartStore((state) => state.cart);
-  const event_title = useCartStore((state) => state.event_title);
+  // const event_title = useCartStore((state) => state.event_title);
   const totalPrice = useCartStore((state) => state.totalPrice);
   const attendees = useAttendeeStore((state) => state.attendees);
   const removeAttendee = useAttendeeStore((state) => state.removeAttendee);
-  const paymentId = uuidv4(); // 임시 paymentId 생성
-  const orderId = uuidv4(); // 임시 orderId 생성
+  // const paymentId = uuidv4(); // 임시 paymentId 생성
+  // const orderId = uuidv4(); // 임시 orderId 생성
 
   useEffect(() => {
     const productIds = cart.map((a) => a.product_id);
