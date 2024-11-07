@@ -18,7 +18,7 @@ const geistSans = localFont({
 // });
 
 const pretendard = localFont({
-  src: "./fonts/Pretendard.woff",
+  src: "./fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
   weight: "100 900",
 });
