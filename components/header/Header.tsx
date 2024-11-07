@@ -7,7 +7,11 @@ export default async function Header() {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
   const user = data?.user;
-  if (user && !user?.user_metadata.social_signup_confirmed) {
+  if (
+    user &&
+    user?.app_metadata.provider !== "email" &&
+    !user?.user_metadata.social_signup_confirmed
+  ) {
     redirect(
       `/signup/social?email=${user?.email}&provider=${user?.app_metadata.provider}`
     );
