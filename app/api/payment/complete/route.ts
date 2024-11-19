@@ -1,14 +1,16 @@
 // src/app/api/payment/complete/route.ts
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { Attendee } from "@/lib/types/attendee";
 
 const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!
 );
 
 export async function POST(req: Request) {
-  const { paymentId, orderId } = await req.json();
+  const { paymentId, orderId, attendees } = await req.json();
+  console.log("api/payment/complete - attendees", attendees);
 
   try {
     // 1. Verify payment with PortOne API
@@ -20,6 +22,7 @@ export async function POST(req: Request) {
         },
       }
     );
+    console.log("api/payment/complete - paymentResponse", paymentResponse);
 
     if (!paymentResponse.ok) {
       throw new Error(
@@ -28,6 +31,7 @@ export async function POST(req: Request) {
     }
 
     const payment = await paymentResponse.json();
+    console.log("api/payment/complete - payment", payment);
 
     // 2. Get order details from Supabase
     const { data: orderData, error: orderError } = await supabase
@@ -35,28 +39,53 @@ export async function POST(req: Request) {
       .select("*")
       .eq("id", orderId)
       .single();
+    console.log("api/payment/complete - orderData", orderData);
 
     if (orderError || !orderData) {
       throw new Error(`Order not found: ${orderId}`);
     }
 
     // 3. Verify payment amount
-    if (orderData.total_amount === payment.amount.total) {
+    if (orderData.total === payment.amount.total) {
       switch (payment.status) {
         case "PAID": {
           // Confirm order with payment details
           const { error: confirmError } = await supabase.rpc("confirm_order", {
             p_order_id: orderId,
-            p_payment_method: payment.method,
-            p_amount: payment.amount.total,
-            p_payment_details: {
-              payment_id: paymentId,
-              status: payment.status,
-              method: payment.method,
-              paid_at: payment.paid_at,
-              receipt_url: payment.receipt_url,
-              // Add any other payment details you want to store
-            },
+            p_event_id: orderData.event_id,
+            p_user_id: orderData.user_id,
+            p_method: payment.method.type,
+            p_payment_id: paymentId,
+            p_amount: Number(payment.amount.total),
+            p_card_type:
+              payment.method.type === "PaymentMethodCard"
+                ? payment.method.card.ownerType
+                : "",
+            p_card_name:
+              payment.method.type === "PaymentMethodCard"
+                ? payment.method.card.name
+                : "",
+            p_card_number:
+              payment.method.type === "PaymentMethodCard"
+                ? payment.method.card.number
+                : "",
+            p_attendee_infos: attendees.map((attendee: Attendee) => ({
+              product_id: attendee.product_id,
+              price: Number(attendee.price),
+              attendee_name: attendee.name,
+              attendee_email: attendee.email,
+              attendee_phone: attendee.phone,
+              attendee_city: attendee.city,
+            })),
+            p_response: payment,
+            // p_payment_details: {
+            //   payment_id: paymentId,
+            //   status: payment.status,
+            //   method: payment.method,
+            //   paid_at: payment.paid_at,
+            //   receipt_url: payment.receipt_url,
+            //   // Add any other payment details you want to store
+            // },
           });
 
           if (confirmError) {

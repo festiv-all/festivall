@@ -45,9 +45,7 @@ export default function TicketSummary({ event_id }: { event_id: string }) {
     <Card className="mt-6 lg:mt-0">
       <CardHeader className="">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm lg:text-base text-gray-700">
-            주문 요약
-          </CardTitle>
+          <CardTitle className="text-sm lg:text-base text-gray-700"></CardTitle>
           <div
             className="text-xs font-semibold text-gray-600 cursor-pointer"
             onClick={cleanCart}
@@ -79,7 +77,7 @@ export default function TicketSummary({ event_id }: { event_id: string }) {
         ))}
         <Separator className="my-4" />
         <div className="flex justify-between items-center text-sm lg:text-base font-semibold pt-8 text-gray-700">
-          <span>주문 합계</span>
+          <span>합계</span>
           <span>{getCurrencyInWon(totalPrice)}</span>
         </div>
 

@@ -14,7 +14,7 @@ import useCartStore from "@/lib/store/cart";
 import InitAttendees from "@/lib/store/initAttendees";
 import { useUser } from "@/lib/store/user";
 import { Mail, MapPin, Phone, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AttendeeForm() {
   const [copyInfo, setCopyInfo] = useState(false);
@@ -28,6 +28,9 @@ export default function AttendeeForm() {
   const removeAttendeeInfos = useAttendeeStore(
     (state) => state.removeAttendeeInfos
   );
+  console.log("attendee form user", user);
+  console.log("attendee form cart", cart);
+  console.log("attendee form attendees", attendees);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (copyInfo && e.target.form?.className.split(" ")[1] === "form-1") {
@@ -51,6 +54,12 @@ export default function AttendeeForm() {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    cart.forEach((attendee) => {
+      updateAttendee(attendee.product_id, "price", attendee.price);
+    });
+  }, [cart, updateAttendee]);
+
   return (
     <Accordion type="multiple" className="w-full space-y-4">
       {cart &&
@@ -69,6 +78,18 @@ export default function AttendeeForm() {
               <AccordionContent>
                 <div className="space-y-4 mt-2.5 text-xs p-0.5">
                   <div className="space-y-2">
+                    <Input
+                      id="price"
+                      value={
+                        attendees.find(
+                          (a) => a.product_id === ticket.product_id
+                        )?.price || ""
+                      }
+                      placeholder=""
+                      required
+                      disabled
+                      className="pl-10 hidden"
+                    />
                     <Label htmlFor="name">Name</Label>
                     <div className="relative">
                       <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />

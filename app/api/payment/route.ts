@@ -4,16 +4,25 @@ import { createClient } from "@supabase/supabase-js";
 import { cartProduct } from "@/lib/types/cartProduct";
 
 const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!
 );
 
 export async function POST(req: Request) {
-  try {
-    const { cart, ticketDetails, totalPrice, eventTitle } = await req.json();
+  const { cart, attendees, totalPrice, eventTitle, eventId, userId } =
+    await req.json();
+  await supabase.rpc("begin_tx");
 
+  try {
     // Validate request data
-    if (!cart || !ticketDetails || !totalPrice || !eventTitle) {
+    if (
+      !cart ||
+      !attendees ||
+      !totalPrice ||
+      !eventTitle ||
+      !eventId ||
+      !userId
+    ) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -21,9 +30,9 @@ export async function POST(req: Request) {
     }
 
     // Validate cart items match ticket details
-    if (cart.length !== ticketDetails.length) {
+    if (cart.length !== attendees.length) {
       return NextResponse.json(
-        { error: "Ticket details must match cart items" },
+        { error: "Attendees must match cart items" },
         { status: 400 }
       );
     }
@@ -36,11 +45,18 @@ export async function POST(req: Request) {
           product_id: item.product_id,
           quantity: 1,
         })),
+        p_event_id: eventId,
+        p_total: totalPrice,
+        p_user_id: userId,
       }
     );
 
     if (orderError) {
+      console.error("api/payment - orderError", orderError);
+      await supabase.rpc("rollback_tx");
       return NextResponse.json({ error: orderError.message }, { status: 400 });
+    } else {
+      await supabase.rpc("begin_tx");
     }
 
     // Return payment initialization data
@@ -57,6 +73,7 @@ export async function POST(req: Request) {
       },
     });
   } catch (error) {
+    await supabase.rpc("rollback_tx");
     console.error("Payment initialization failed:", error);
     return NextResponse.json(
       { error: "Payment initialization failed" },

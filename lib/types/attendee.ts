@@ -6,4 +6,5 @@ export type Attendee = {
   phone: string;
   city: string;
   note: string;
+  price: number;
 };

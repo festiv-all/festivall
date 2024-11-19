@@ -9,9 +9,56 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      attendees: {
+        Row: {
+          attendee_city: string | null
+          attendee_email: string | null
+          attendee_name: string | null
+          attendee_name_en: string | null
+          attendee_phone: string | null
+          created_at: string
+          id: number
+          order_item_id: string | null
+          status: Database["public"]["Enums"]["attendee_status"] | null
+          user_id: string | null
+        }
+        Insert: {
+          attendee_city?: string | null
+          attendee_email?: string | null
+          attendee_name?: string | null
+          attendee_name_en?: string | null
+          attendee_phone?: string | null
+          created_at?: string
+          id?: number
+          order_item_id?: string | null
+          status?: Database["public"]["Enums"]["attendee_status"] | null
+          user_id?: string | null
+        }
+        Update: {
+          attendee_city?: string | null
+          attendee_email?: string | null
+          attendee_name?: string | null
+          attendee_name_en?: string | null
+          attendee_phone?: string | null
+          created_at?: string
+          id?: number
+          order_item_id?: string | null
+          status?: Database["public"]["Enums"]["attendee_status"] | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendees_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "order_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       categories: {
         Row: {
-          allow_multiple: boolean
+          allow_multiple: boolean | null
           created_at: string
           description: string | null
           display_order: number
@@ -22,7 +69,7 @@ export type Database = {
           title_en: string | null
         }
         Insert: {
-          allow_multiple?: boolean
+          allow_multiple?: boolean | null
           created_at?: string
           description?: string | null
           display_order: number
@@ -33,7 +80,7 @@ export type Database = {
           title_en?: string | null
         }
         Update: {
-          allow_multiple?: boolean
+          allow_multiple?: boolean | null
           created_at?: string
           description?: string | null
           display_order?: number
@@ -55,55 +102,61 @@ export type Database = {
       }
       events: {
         Row: {
-          activate_from: string
-          activate_until: string
           created_at: string
-          date_end: string
-          date_start: string
           description: string | null
-          homepage: string | null
+          end_datetime: string
           id: string
           image_url: string | null
           link_facebook: string | null
           link_instagram: string | null
           link_youtube: string | null
+          max_capacity: number | null
           organizer_id: string | null
+          start_datetime: string
+          status: Database["public"]["Enums"]["event_status"] | null
           title: string
+          type: Database["public"]["Enums"]["event_type"] | null
           venue: string
+          venue_address: string | null
+          website: string | null
         }
         Insert: {
-          activate_from: string
-          activate_until: string
           created_at?: string
-          date_end: string
-          date_start: string
           description?: string | null
-          homepage?: string | null
+          end_datetime: string
           id?: string
           image_url?: string | null
           link_facebook?: string | null
           link_instagram?: string | null
           link_youtube?: string | null
+          max_capacity?: number | null
           organizer_id?: string | null
+          start_datetime: string
+          status?: Database["public"]["Enums"]["event_status"] | null
           title: string
+          type?: Database["public"]["Enums"]["event_type"] | null
           venue: string
+          venue_address?: string | null
+          website?: string | null
         }
         Update: {
-          activate_from?: string
-          activate_until?: string
           created_at?: string
-          date_end?: string
-          date_start?: string
           description?: string | null
-          homepage?: string | null
+          end_datetime?: string
           id?: string
           image_url?: string | null
           link_facebook?: string | null
           link_instagram?: string | null
           link_youtube?: string | null
+          max_capacity?: number | null
           organizer_id?: string | null
+          start_datetime?: string
+          status?: Database["public"]["Enums"]["event_status"] | null
           title?: string
+          type?: Database["public"]["Enums"]["event_type"] | null
           venue?: string
+          venue_address?: string | null
+          website?: string | null
         }
         Relationships: [
           {
@@ -115,74 +168,67 @@ export type Database = {
           },
         ]
       }
-      order_details: {
+      notifications: {
         Row: {
-          created_at: string
+          created_at: string | null
           id: string
-          orderId: string | null
-          payment_id: string | null
-          status: Database["public"]["Enums"]["order_status"] | null
-          total: number | null
-          user_id: string | null
         }
         Insert: {
-          created_at?: string
+          created_at?: string | null
           id: string
-          orderId?: string | null
-          payment_id?: string | null
-          status?: Database["public"]["Enums"]["order_status"] | null
-          total?: number | null
-          user_id?: string | null
         }
         Update: {
-          created_at?: string
+          created_at?: string | null
           id?: string
-          orderId?: string | null
-          payment_id?: string | null
-          status?: Database["public"]["Enums"]["order_status"] | null
-          total?: number | null
-          user_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "order_details_payment_id_fkey"
-            columns: ["payment_id"]
-            isOneToOne: false
-            referencedRelation: "payment_details"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "order_details_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       order_items: {
         Row: {
           created_at: string
+          event_id: string | null
           id: string
+          order_id: string | null
+          price: number | null
           product_id: string | null
           quantity: number | null
           user_id: string | null
         }
         Insert: {
           created_at?: string
+          event_id?: string | null
           id?: string
+          order_id?: string | null
+          price?: number | null
           product_id?: string | null
           quantity?: number | null
           user_id?: string | null
         }
         Update: {
           created_at?: string
+          event_id?: string | null
           id?: string
+          order_id?: string | null
+          price?: number | null
           product_id?: string | null
           quantity?: number | null
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "order_items_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "order_items_product_id_fkey"
             columns: ["product_id"]
@@ -195,6 +241,132 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_payments: {
+        Row: {
+          amount: number | null
+          cancel_amount: number | null
+          cancel_reason: string | null
+          card_name: string | null
+          card_number: string | null
+          card_type: string | null
+          created_at: string
+          event_id: string | null
+          id: string
+          method: string | null
+          order_id: string | null
+          payment_id: string | null
+          provider: string | null
+          response: Json | null
+          status: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount?: number | null
+          cancel_amount?: number | null
+          cancel_reason?: string | null
+          card_name?: string | null
+          card_number?: string | null
+          card_type?: string | null
+          created_at?: string
+          event_id?: string | null
+          id?: string
+          method?: string | null
+          order_id?: string | null
+          payment_id?: string | null
+          provider?: string | null
+          response?: Json | null
+          status?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number | null
+          cancel_amount?: number | null
+          cancel_reason?: string | null
+          card_name?: string | null
+          card_number?: string | null
+          card_type?: string | null
+          created_at?: string
+          event_id?: string | null
+          id?: string
+          method?: string | null
+          order_id?: string | null
+          payment_id?: string | null
+          provider?: string | null
+          response?: Json | null
+          status?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_payments_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_payments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_details_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          cancelled_at: string | null
+          card_name: string | null
+          card_number: string | null
+          card_type: string | null
+          created_at: string
+          event_id: string | null
+          id: string
+          status: Database["public"]["Enums"]["order_status"]
+          total: number | null
+          user_id: string | null
+        }
+        Insert: {
+          cancelled_at?: string | null
+          card_name?: string | null
+          card_number?: string | null
+          card_type?: string | null
+          created_at?: string
+          event_id?: string | null
+          id: string
+          status?: Database["public"]["Enums"]["order_status"]
+          total?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          cancelled_at?: string | null
+          card_name?: string | null
+          card_number?: string | null
+          card_type?: string | null
+          created_at?: string
+          event_id?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["order_status"]
+          total?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
             referencedColumns: ["id"]
           },
         ]
@@ -212,6 +384,7 @@ export type Database = {
           provider: string | null
           rep_name: string
           user_id: string | null
+          website: string | null
         }
         Insert: {
           address?: string | null
@@ -225,6 +398,7 @@ export type Database = {
           provider?: string | null
           rep_name: string
           user_id?: string | null
+          website?: string | null
         }
         Update: {
           address?: string | null
@@ -238,57 +412,22 @@ export type Database = {
           provider?: string | null
           rep_name?: string
           user_id?: string | null
+          website?: string | null
         }
         Relationships: []
-      }
-      payment_details: {
-        Row: {
-          created_at: string
-          id: string
-          method: string | null
-          order_id: string | null
-          provider: string | null
-          status: string | null
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          method?: string | null
-          order_id?: string | null
-          provider?: string | null
-          status?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          method?: string | null
-          order_id?: string | null
-          provider?: string | null
-          status?: string | null
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "payment_details_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       products: {
         Row: {
           activate_from: string
           category_id: number | null
           created_at: string
+          description: string | null
           event_id: string
           id: string
           image_url: string | null
           max_quantity: number
           price: number
+          status: Database["public"]["Enums"]["product_status"] | null
           sub_category_id: number | null
           title: string
           title_en: string | null
@@ -297,11 +436,13 @@ export type Database = {
           activate_from?: string
           category_id?: number | null
           created_at?: string
+          description?: string | null
           event_id: string
           id?: string
           image_url?: string | null
           max_quantity: number
           price: number
+          status?: Database["public"]["Enums"]["product_status"] | null
           sub_category_id?: number | null
           title: string
           title_en?: string | null
@@ -310,11 +451,13 @@ export type Database = {
           activate_from?: string
           category_id?: number | null
           created_at?: string
+          description?: string | null
           event_id?: string
           id?: string
           image_url?: string | null
           max_quantity?: number
           price?: number
+          status?: Database["public"]["Enums"]["product_status"] | null
           sub_category_id?: number | null
           title?: string
           title_en?: string | null
@@ -342,6 +485,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      roles: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          role_name: Database["public"]["Enums"]["user_role"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          role_name?: Database["public"]["Enums"]["user_role"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          role_name?: Database["public"]["Enums"]["user_role"] | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       sub_categories: {
         Row: {
@@ -397,63 +564,31 @@ export type Database = {
           },
         ]
       }
-      ticket_details: {
+      user_roles: {
         Row: {
-          attendee_email: string | null
-          attendee_en_name: string | null
-          attendee_name: string | null
-          attendee_nickname: string | null
-          attendee_phone: string | null
-          created_at: string
-          event_id: string | null
-          id: number
-          order_item_id: string | null
-          product_id: string | null
+          created_at: string | null
+          id: string
+          role_id: string | null
+          user_id: string | null
         }
         Insert: {
-          attendee_email?: string | null
-          attendee_en_name?: string | null
-          attendee_name?: string | null
-          attendee_nickname?: string | null
-          attendee_phone?: string | null
-          created_at?: string
-          event_id?: string | null
-          id?: number
-          order_item_id?: string | null
-          product_id?: string | null
+          created_at?: string | null
+          id?: string
+          role_id?: string | null
+          user_id?: string | null
         }
         Update: {
-          attendee_email?: string | null
-          attendee_en_name?: string | null
-          attendee_name?: string | null
-          attendee_nickname?: string | null
-          attendee_phone?: string | null
-          created_at?: string
-          event_id?: string | null
-          id?: number
-          order_item_id?: string | null
-          product_id?: string | null
+          created_at?: string | null
+          id?: string
+          role_id?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "ticket_details_event_id_fkey"
-            columns: ["event_id"]
+            foreignKeyName: "user_roles_role_id_fkey"
+            columns: ["role_id"]
             isOneToOne: false
-            referencedRelation: "events"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "ticket_details_order_item_id_fkey"
-            columns: ["order_item_id"]
-            isOneToOne: false
-            referencedRelation: "order_items"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "ticket_details_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "products"
+            referencedRelation: "roles"
             referencedColumns: ["id"]
           },
         ]
@@ -505,18 +640,75 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      begin_tx: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      cancel_order: {
+        Args: {
+          p_order_id: string
+          p_reason?: string
+          p_response?: string
+        }
+        Returns: undefined
+      }
+      commit_tx: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      confirm_order: {
+        Args: {
+          p_order_id: string
+          p_event_id: string
+          p_user_id: string
+          p_method: string
+          p_payment_id: string
+          p_amount: number
+          p_card_type: string
+          p_card_name: string
+          p_card_number: string
+          p_attendee_infos: Json[]
+          p_response: Json
+        }
+        Returns: undefined
+      }
       delete_user: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      has_any_role: {
+        Args: {
+          p_user_id: string
+        }
+        Returns: boolean
+      }
+      is_organizer: {
+        Args: {
+          user_id: string
+        }
+        Returns: boolean
+      }
+      process_order: {
+        Args: {
+          p_cart_items: Json[]
+          p_event_id: string
+          p_user_id: string
+          p_total: number
+        }
+        Returns: string
+      }
+      rollback_tx: {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
     }
     Enums: {
-      order_status:
-        | "completed"
-        | "onprocess"
-        | "failed"
-        | "canceled"
-        | "refunded"
+      attendee_status: "not_checked" | "checked_in" | "no_show"
+      event_status: "draft" | "published" | "cancelled"
+      event_type: "festival" | "workshop" | "party"
+      order_status: "pending" | "confirmed" | "cancelled"
+      product_status: "draft" | "active" | "inactive" | "end"
+      user_role: "admin" | "organizer"
     }
     CompositeTypes: {
       [_ in never]: never

@@ -9,7 +9,11 @@ interface AttendeeState {
 // Define the interface of the actions that can be performed in the Cart
 interface Actions {
   addAttendee: (attendee: Attendee) => void;
-  updateAttendee: (product_id: string, field: string, value: string) => void;
+  updateAttendee: (
+    product_id: string,
+    field: string,
+    value: string | number
+  ) => void;
   removeAttendee: (attendee: Attendee) => void;
   cleanAttendees: () => void;
   copyAllAttendeeInfos: (product_id: string) => void;
@@ -35,7 +39,11 @@ export const useAttendeeStore = create(
           attendees: [...otherAttendees, attendee],
         }));
       },
-      updateAttendee: (product_id: string, field: string, value: string) => {
+      updateAttendee: (
+        product_id: string,
+        field: string,
+        value: string | number
+      ) => {
         set((state) => ({
           attendees: state.attendees.map((a) =>
             a.product_id === product_id ? { ...a, [field]: value } : a

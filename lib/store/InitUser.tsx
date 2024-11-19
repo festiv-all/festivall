@@ -5,6 +5,8 @@ import { useUser } from "./user";
 
 export default function InitUser({ user }: { user: User | undefined }) {
   const initState = useRef(false);
+  console.log("init user", user);
+  console.log("init state", initState.current);
 
   useEffect(() => {
     if (!initState.current) {

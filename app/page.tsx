@@ -3,11 +3,23 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import InitUser from "@/lib/store/InitUser";
+import { createClient } from "@/utils/supabase/server";
+import { eventDatesDisplay } from "@/utils/utils";
 import { Music, Theater, Trophy, Utensils } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
   // const [searchQuery, setSearchQuery] = useState("");
+  const supabase = await createClient();
+  const { data: recentEvents } = await supabase
+    .from("events")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(3);
+  const { data: user } = await supabase.auth.getUser();
+  console.log("home page user", user.user);
+
   const hotEvents = [
     {
       id: 1,
@@ -93,11 +105,11 @@ export default async function Home() {
               >
                 <img
                   src={event.image}
-                  alt={event.name}
+                  alt={eventitem.title}
                   className="w-full h-56 object-cover"
                 />
                 <CardContent className="p-6">
-                  <h4 className="text-2xl font-semibold mb-3">{event.name}</h4>
+                  <h4 className="text-2xl font-semibold mb-3">{eventitem.title}</h4>
                   <p className="text-gray-600 mb-4 flex items-center">
                     <Calendar className="w-5 h-5 mr-2" />
                     {event.date}
@@ -135,45 +147,55 @@ export default async function Home() {
               </TabsList>
               <TabsContent value="all" className="space-y-4">
                 {/* Example event items */}
-                {hotEvents.map((item) => (
+                {recentEvents?.map((item) => (
                   <Card
-                    key={item.name}
+                    key={item.title}
                     className="p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
                   >
-                    <Link href={item.link} className="flex items-center">
+                    <Link
+                      href={`/event/${item.id}`}
+                      className="flex items-center"
+                    >
                       <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
                         <span className="text-white font-bold text-sm">
-                          {item.icon}
+                          {item.image_url}
                         </span>
                       </div>
                       <div className="flex-grow">
                         <h4 className="text-sm text-gray-700 font-semibold mb-2">
-                          {item.name}
+                          {item.title}
                         </h4>
-                        <p className="text-xs text-gray-600">{item.date}</p>
+                        <p className="text-xs text-gray-600">
+                          {eventDatesDisplay(
+                            item.start_datetime,
+                            item.end_datetime
+                          )}
+                        </p>
                       </div>
                     </Link>
                   </Card>
                 ))}
               </TabsContent>
               <TabsContent value="this-week" className="space-y-6">
-                {hotEvents.map((item) => (
+                {recentEvents?.map((item) => (
                   <Card
-                    key={item.name}
+                    key={item.title}
                     className="flex items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
                   >
                     <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
                       <span className="text-white font-bold text-sm">
-                        {item.icon}
+                        {item.image_url}
                       </span>
                     </div>
                     <div className="flex-grow">
                       <h4 className="text-sm text-gray-700 font-semibold mb-2">
-                        {item.name}
+                        {item.title}
                       </h4>
-                      <p className="text-sm text-gray-600">{item.date}</p>
+                      <p className="text-sm text-gray-600">
+                        {item.start_datetime} - {item.end_datetime}
+                      </p>
                     </div>
-                    <Link href={item.link}>
+                    <Link href={`/event/${item.id}`}>
                       <Button
                         variant="outline"
                         className="font-semibold text-gray-700 text-xs ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
@@ -185,23 +207,28 @@ export default async function Home() {
                 ))}
               </TabsContent>
               <TabsContent value="this-month" className="space-y-6">
-                {hotEvents.map((item) => (
+                {recentEvents?.map((item) => (
                   <Card
-                    key={item.name}
+                    key={item.title}
                     className="flex items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
                   >
                     <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
                       <span className="text-white font-bold text-sm">
-                        {item.icon}
+                        {item.image_url}
                       </span>
                     </div>
                     <div className="flex-grow">
                       <h4 className="text-sm text-gray-700 font-semibold mb-2">
-                        {item.name}
+                        {item.title}
                       </h4>
-                      <p className="text-sm text-gray-600">{item.date}</p>
+                      <p className="text-sm text-gray-600">
+                        {eventDatesDisplay(
+                          item.start_datetime,
+                          item.end_datetime
+                        )}
+                      </p>
                     </div>
-                    <Link href={item.link}>
+                    <Link href={`/event/${item.id}`}>
                       <Button
                         variant="outline"
                         className="font-semibold text-gray-700 text-xs ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
@@ -213,23 +240,28 @@ export default async function Home() {
                 ))}
               </TabsContent>
               <TabsContent value="next-month" className="space-y-6">
-                {hotEvents.map((item) => (
+                {recentEvents?.map((item) => (
                   <Card
-                    key={item.name}
+                    key={item.title}
                     className="flex items-center p-6 hover:shadow-lg transition-shadow duration-300 rounded-lg"
                   >
                     <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-6">
                       <span className="text-white font-bold text-sm">
-                        {item.icon}
+                        {item.image_url}
                       </span>
                     </div>
                     <div className="flex-grow">
                       <h4 className="text-sm text-gray-700 font-semibold mb-2">
-                        {item.name}
+                        {item.title}
                       </h4>
-                      <p className="text-sm text-gray-600">{item.date}</p>
+                      <p className="text-sm text-gray-600">
+                        {eventDatesDisplay(
+                          item.start_datetime,
+                          item.end_datetime
+                        )}
+                      </p>
                     </div>
-                    <Link href={item.link}>
+                    <Link href={`/event/${item.id}`}>
                       <Button
                         variant="outline"
                         className="font-semibold text-gray-700 text-xs ml-4 rounded-full px-6 py-2 hover:bg-purple-100 transition-colors duration-300"
@@ -242,6 +274,7 @@ export default async function Home() {
               </TabsContent>
             </Tabs>
           </section>
+          <InitUser user={user?.user || undefined} />
         </main>
       </div>
     </div>
