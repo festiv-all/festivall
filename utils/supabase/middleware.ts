@@ -52,6 +52,21 @@ export async function updateSession(request: NextRequest) {
     );
   }
 
+  if (request.nextUrl.pathname.startsWith("/admin")) {
+    const { data } = await supabase.rpc("has_role", {
+      user_id: user?.id,
+      role_name: null,
+    });
+
+    if (data) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
+  if (!user && request.nextUrl.pathname.startsWith("/event/buy")) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
   // if (
   //   !user &&
   //   !request.nextUrl.pathname.startsWith("/login") &&
