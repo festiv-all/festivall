@@ -21,6 +21,7 @@ export default function InitAttendees() {
           phone: user?.phone ?? "",
           city: "",
           note: "",
+          price: 0,
         })),
       });
     }
