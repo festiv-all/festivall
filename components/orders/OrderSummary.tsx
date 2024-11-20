@@ -31,7 +31,7 @@ export default function OrderSummary({
   const removeAttendee = useAttendeeStore((state) => state.removeAttendee);
   const eventId = useCartStore((state) => state.event_id);
   const user = useUser((state) => state.user);
-  console.log("order summary user", user);
+  // console.log("order summary user", user);
 
   useEffect(() => {
     const productIds = cart.map((a) => a.product_id);

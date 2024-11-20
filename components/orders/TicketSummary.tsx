@@ -9,13 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 export default function TicketSummary({ event_id }: { event_id: string }) {
   const router = useRouter();
