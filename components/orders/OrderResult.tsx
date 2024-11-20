@@ -23,13 +23,7 @@ import { Check } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
 
-export default function OrderResult({
-  order,
-  payment,
-}: {
-  order: Order | null;
-  payment: OrderPayment | null;
-}) {
+export default function OrderResult({ order }: { order: Order | null }) {
   const cleanAttendees = useAttendeeStore((state) => state.cleanAttendees);
   const cleanCart = useCartStore((state) => state.cleanCart);
 
