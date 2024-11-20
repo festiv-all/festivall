@@ -23,31 +23,6 @@ import { Check } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
 
-// Mock data for the order confirmation
-const orderConfirmation = {
-  orderNumber: "ORD-12345",
-  event: {
-    name: "Swingin' On the Campus 발보아 트레이닝",
-    date: "2024년 10월 16일 - 11월 20일",
-    imageUrl: "/placeholder.svg?height=100&width=200",
-  },
-  items: [
-    {
-      name: "Lead",
-      quantity: 1,
-      price: 140000,
-      attendee: { name: "John Doe", email: "john@example.com" },
-    },
-    {
-      name: "Follow",
-      quantity: 1,
-      price: 140000,
-      attendee: { name: "Jane Smith", email: "jane@example.com" },
-    },
-  ],
-  total: 280000,
-};
-
 export default function OrderResult({
   order,
   payment,

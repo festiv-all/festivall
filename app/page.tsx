@@ -16,36 +16,10 @@ export default async function Home() {
     .from("events")
     .select("*")
     .order("created_at", { ascending: false })
+    .eq("status", "published")
     .limit(3);
   const { data: user } = await supabase.auth.getUser();
-  console.log("home page user", user.user);
-
-  const hotEvents = [
-    {
-      id: 1,
-      icon: "BK",
-      name: "The Battle Korea Showdown 2024",
-      date: "2024년 11월 22-24일",
-      image: "/placeholder.svg?height=400&width=600",
-      link: "/event/7520bc67-aa5d-475d-a391-4ac5380e7f6d",
-    },
-    {
-      id: 2,
-      icon: "SOC",
-      name: "Swingin' On the Campus 발보아 트레이닝",
-      date: "2024년 10월 16일 - 11월 20일",
-      image: "/placeholder.svg?height=400&width=600",
-      link: "/event/6d31cb63-fc54-4d0e-aa80-199ad2d05827",
-    },
-    {
-      id: 3,
-      icon: "new",
-      name: "Lindy Hop Basic",
-      date: "2024년 11월 4-18일",
-      image: "/placeholder.svg?height=400&width=600",
-      link: "/event/a4afc104-a6d8-4643-8bf3-488a17913ece",
-    },
-  ];
+  // console.log("home page user", user.user);
 
   const genres = [
     { icon: <Music className="w-4 h-4" />, label: "댄스" },
