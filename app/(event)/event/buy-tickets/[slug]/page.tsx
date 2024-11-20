@@ -137,6 +137,7 @@ export default async function BuyTicketsPage({
                                 <BuyTicketProductCard
                                   key={item.id}
                                   product={item}
+                                  quantities={quantities}
                                 />
                               ))}
                           </div>
