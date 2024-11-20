@@ -9,8 +9,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export default function BuyTicketProductCard({
   product,
+  quantities,
 }: {
   product: Product;
+  quantities: {
+    product_id: string;
+    max_quantity: number;
+    items_sold: number;
+    available_quantity: number;
+  }[];
 }) {
   const cart = useCartStore((state) => state.cart);
   const addToCart = useCartStore((state) => state.addToCart);
@@ -49,7 +56,10 @@ export default function BuyTicketProductCard({
         </CardContent>
       </div>
       <div>
-        {product.max_quantity > 0 ? (
+        {quantities.find((q) => q.product_id === product.id)
+          ?.available_quantity &&
+        quantities.find((q) => q.product_id === product.id)!
+          .available_quantity > 0 ? (
           <div className="flex items-center justify-end mt-4 lg:mt-0">
             <Button
               variant="outline"

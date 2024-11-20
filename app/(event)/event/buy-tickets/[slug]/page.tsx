@@ -33,6 +33,46 @@ export default async function BuyTicketsPage({
     .eq("event_id", params.slug);
   // console.log(categories);
 
+  const productIds = event?.products
+    .filter((product) => product.status === "active")
+    .map((product) => product.id);
+
+  const checkQuantities = async (productIds: string[]) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/product/check_stock`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ productIds }),
+        }
+      );
+
+      const result = await response.json();
+      console.log("result", result);
+
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+
+      return result.data;
+      // Returns array of:
+      // {
+      //   product_id: string;
+      //   max_quantity: number;
+      //   items_sold: number;
+      //   available_quantity: number;
+      // }
+    } catch (error) {
+      console.error("Failed to check quantities:", error);
+      throw error;
+    }
+  };
+
+  const quantities = await checkQuantities(productIds || []);
+
   return (
     <div className="container mx-auto max-w-5xl">
       <Header />
@@ -69,15 +109,18 @@ export default async function BuyTicketsPage({
               <div className="lg:flex-grow md:col-span-2 lg:col-span-3">
                 {categories?.length === 0 ? (
                   <div className="mb-10 lg:mb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {event?.products.map((product) => {
-                      product.event_id = event.id;
-                      return (
-                        <BuyTicketProductCard
-                          key={product.id}
-                          product={product}
-                        />
-                      );
-                    })}
+                    {event?.products
+                      .filter((product) => product.status === "active")
+                      .map((product) => {
+                        product.event_id = event.id;
+                        return (
+                          <BuyTicketProductCard
+                            key={product.id}
+                            product={product}
+                            quantities={quantities}
+                          />
+                        );
+                      })}
                   </div>
                 ) : (
                   categories?.map(
