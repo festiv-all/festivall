@@ -1,11 +1,5 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,9 +22,9 @@ export default function AttendeeForm() {
   const removeAttendeeInfos = useAttendeeStore(
     (state) => state.removeAttendeeInfos
   );
-  console.log("attendee form user", user);
-  console.log("attendee form cart", cart);
-  console.log("attendee form attendees", attendees);
+  // console.log("attendee form user", user);
+  // console.log("attendee form cart", cart);
+  // console.log("attendee form attendees", attendees);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (copyInfo && e.target.form?.className.split(" ")[1] === "form-1") {
@@ -58,10 +52,11 @@ export default function AttendeeForm() {
     cart.forEach((attendee) => {
       updateAttendee(attendee.product_id, "price", attendee.price);
     });
+    console.log(attendees.map((i, index) => `item-${index}`));
   }, [cart, updateAttendee]);
 
   return (
-    <Accordion type="multiple" className="w-full space-y-4">
+    <div className="w-full space-y-4">
       {cart &&
         attendees &&
         cart.map((ticket, index) => (
@@ -71,111 +66,104 @@ export default function AttendeeForm() {
             className={`space-y-4 form-${index + 1}`}
             key={ticket.product_id}
           >
-            <AccordionItem value={`item-${index}`}>
-              <AccordionTrigger className="text-pink-700 font-semibold">
-                {ticket.product_title}
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-4 mt-2.5 text-xs p-0.5">
-                  <div className="space-y-2">
-                    <Input
-                      id="price"
-                      value={
-                        attendees.find(
-                          (a) => a.product_id === ticket.product_id
-                        )?.price || ""
-                      }
-                      placeholder=""
-                      required
-                      disabled
-                      className="pl-10 hidden"
-                    />
-                    <Label htmlFor="name">Name</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                      <Input
-                        id="name"
-                        value={
-                          attendees.find(
-                            (a) => a.product_id === ticket.product_id
-                          )?.name || ""
-                        }
-                        placeholder=""
-                        required
-                        onChange={handleChange}
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                      <Input
-                        id="email"
-                        type="email"
-                        value={user?.email}
-                        placeholder="example@email.com"
-                        readOnly
-                        disabled={true}
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone</Label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="Verify your number on My page"
-                        value={user?.phone}
-                        readOnly
-                        disabled={true}
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="city">City / Community</Label>
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                      <Input
-                        id="city"
-                        type="text"
-                        placeholder=""
-                        value={
-                          attendees.find(
-                            (a) => a.product_id === ticket.product_id
-                          )?.city || ""
-                        }
-                        onChange={handleChange}
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  {index === 0 && cart.length > 1 && (
-                    <div className="flex items-center space-x-2 mt-6">
-                      <Checkbox
-                        id="copy-info"
-                        checked={copyInfo}
-                        onCheckedChange={handleCopyInfoChange}
-                      />
-                      <label
-                        htmlFor="copy-info"
-                        className="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Use this information for all tickets
-                      </label>
-                    </div>
-                  )}
+            <div className="text-sm text-pink-700 font-semibold py-4">
+              {ticket.product_title}
+            </div>
+            <div className="space-y-4 mt-2.5 text-xs p-0.5">
+              <div className="space-y-2">
+                <Input
+                  id="price"
+                  value={
+                    attendees.find((a) => a.product_id === ticket.product_id)
+                      ?.price || ""
+                  }
+                  placeholder=""
+                  required
+                  disabled
+                  className="pl-10 hidden"
+                />
+                <Label htmlFor="name">Name</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="name"
+                    value={
+                      attendees.find((a) => a.product_id === ticket.product_id)
+                        ?.name || ""
+                    }
+                    placeholder=""
+                    required
+                    onChange={handleChange}
+                    className="pl-10"
+                  />
                 </div>
-              </AccordionContent>
-            </AccordionItem>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="email"
+                    type="email"
+                    value={user?.email}
+                    placeholder="example@email.com"
+                    readOnly
+                    disabled={true}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone</Label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="Verify your number on My page"
+                    value={user?.phone}
+                    readOnly
+                    disabled={true}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="city">City / Community</Label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="city"
+                    type="text"
+                    placeholder=""
+                    value={
+                      attendees.find((a) => a.product_id === ticket.product_id)
+                        ?.city || ""
+                    }
+                    onChange={handleChange}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+              {index === 0 && cart.length > 1 && (
+                <div className="flex items-center space-x-2 mt-6">
+                  <Checkbox
+                    id="copy-info"
+                    checked={copyInfo}
+                    onCheckedChange={handleCopyInfoChange}
+                  />
+                  <label
+                    htmlFor="copy-info"
+                    className="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Use this information for all tickets
+                  </label>
+                </div>
+              )}
+            </div>
             <InitAttendees />
           </form>
         ))}
-    </Accordion>
+    </div>
   );
 }
