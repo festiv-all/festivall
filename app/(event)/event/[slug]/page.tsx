@@ -31,6 +31,9 @@ export default async function EventDetailPage({
     .single();
   // console.log("event", event);
 
+  const { data: user } = await supabase.auth.getUser();
+  console.log("user", user);
+
   return (
     <div className="container mx-auto max-w-5xl">
       <Header />
@@ -56,7 +59,10 @@ export default async function EventDetailPage({
                   <div className="flex items-center text-sm md:text-md">
                     <Calendar className="w-5 h-5 mr-2 text-gray-500" />
                     <span>
-                      {eventDatesDisplay(event.date_start, event.date_end)}
+                      {eventDatesDisplay(
+                        event.start_datetime,
+                        event.end_datetime
+                      )}
                     </span>
                   </div>
                   <div className="flex items-center text-sm md:text-md">
@@ -78,10 +84,17 @@ export default async function EventDetailPage({
                     </a>
                   </div>
                   <div>
-                    <Link href={`buy-tickets/${event.id}`}>
-                      <Button className="w-full md:w-auto bg-pink-700 text-white hover:bg-pink-500">
+                    <Link
+                      href={`${
+                        user.user ? `buy-tickets/${event.id}` : "/login"
+                      }`}
+                    >
+                      <Button
+                        className="w-full md:w-auto bg-pink-700 text-white hover:bg-pink-500 "
+                        disabled={!user.user}
+                      >
                         <Ticket className="w-4 h-4 mr-2" />
-                        티켓 구매하기
+                        {user.user ? "구매하기" : "로그인 후 구매하기"}
                       </Button>
                     </Link>
                   </div>

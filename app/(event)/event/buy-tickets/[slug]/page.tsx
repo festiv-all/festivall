@@ -56,7 +56,7 @@ export default async function BuyTicketsPage({
               <div className="flex items-center text-gray-600 mb-1">
                 <Calendar className="w-3 h-3 lg:w-4 lg:h-4 mr-1 lg:mr-2" />
                 <span>
-                  {eventDatesDisplay(event.date_start, event.date_end)}
+                  {eventDatesDisplay(event.start_datetime, event.end_datetime)}
                 </span>
               </div>
               <div className="flex items-center text-gray-600">
