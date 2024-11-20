@@ -109,7 +109,7 @@ export default function OrderSummary({
     } catch (error) {
       console.error("Payment failed:", error);
       toast.error(
-        error instanceof Error
+        error instanceof Error && process.env.NODE_ENV === "development"
           ? error.message
           : "Payment failed. Please try again."
       );

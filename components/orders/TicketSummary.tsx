@@ -45,7 +45,9 @@ export default function TicketSummary({ event_id }: { event_id: string }) {
     <Card className="mt-6 lg:mt-0">
       <CardHeader className="">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm lg:text-base text-gray-700"></CardTitle>
+          <CardTitle className="text-sm lg:text-base text-gray-700">
+            Order Summary
+          </CardTitle>
           <div
             className="text-xs font-semibold text-gray-600 cursor-pointer"
             onClick={cleanCart}
@@ -106,11 +108,11 @@ export default function TicketSummary({ event_id }: { event_id: string }) {
             </Button>
           </SheetTrigger>
           <SheetContent>
-            <SheetHeader>
+            {/* <SheetHeader>
               <SheetTitle className="text-base lg:text-lg">
                 Order Summary
               </SheetTitle>
-            </SheetHeader>
+            </SheetHeader> */}
             <OrderSum />
           </SheetContent>
         </Sheet>
