@@ -78,14 +78,6 @@ export async function POST(req: Request) {
               attendee_city: attendee.city,
             })),
             p_response: payment,
-            // p_payment_details: {
-            //   payment_id: paymentId,
-            //   status: payment.status,
-            //   method: payment.method,
-            //   paid_at: payment.paid_at,
-            //   receipt_url: payment.receipt_url,
-            //   // Add any other payment details you want to store
-            // },
           });
 
           if (confirmError) {
