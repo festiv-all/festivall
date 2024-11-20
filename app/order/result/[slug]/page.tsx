@@ -1,6 +1,6 @@
 import Header from "@/components/header/Header";
 import OrderResult from "@/components/orders/OrderResult";
-import { Order, OrderPayment } from "@/lib/types";
+import { Order } from "@/lib/types";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function OrderConfirmation({
@@ -27,10 +27,7 @@ export default async function OrderConfirmation({
       <Header />
       <div className="mt-12 px-4 py-8">
         {order && payment ? (
-          <OrderResult
-            order={order as Order}
-            payment={payment as OrderPayment}
-          />
+          <OrderResult order={order as Order} />
         ) : (
           <div>Order not found</div>
         )}

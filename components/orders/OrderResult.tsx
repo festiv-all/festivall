@@ -17,7 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import useAttendeeStore from "@/lib/store/attendee";
 import useCartStore from "@/lib/store/cart";
-import { Order, OrderPayment } from "@/lib/types";
+import { Order } from "@/lib/types";
 import { getCurrencyInWon } from "@/utils/utils";
 import { Check } from "lucide-react";
 import Image from "next/image";
